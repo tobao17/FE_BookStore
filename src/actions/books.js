@@ -7,7 +7,13 @@ export async function getBooks(books) {
 }
 export async function addBooks(books) {
 	return {
-		type: "GET_BOOKS",
+		type: "ADD_BOOk",
+		payload: books,
+	};
+}
+export async function deleteBooks(books) {
+	return {
+		type: "DeleteBook",
 		payload: books,
 	};
 }

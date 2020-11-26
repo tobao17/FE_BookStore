@@ -12,6 +12,7 @@ import InputField from "../../../../components/InputField";
 import SelectField from "../../../../components/SelectFiled";
 import ImageField from "../../../../components/ImageField";
 import global from "../../../../constants/global";
+import { useHistory, useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
 	appBar: {
@@ -60,13 +61,18 @@ export default function Checkout(props) {
 	const classes = useStyles();
 	const initialValues = {
 		title: "",
-		number: "",
+		quantity: "",
 		author: "",
 		description: "",
-		image: "",
+		images: "",
 		price: "",
 		category: "",
 	};
+	const history = useHistory();
+	function handleBack(vaule) {
+		history.push("/admin");
+		return;
+	}
 
 	return (
 		<Formik initialValues={initialValues} onSubmit={props.onSubmit}>
@@ -93,7 +99,7 @@ export default function Checkout(props) {
 												xm={6}
 											></FastField>
 											<FastField
-												name="number"
+												name="quantity"
 												label="Số lượng"
 												component={InputField}
 												type="Number"
@@ -134,12 +140,12 @@ export default function Checkout(props) {
 											></FastField> */}
 											<Grid item xs={12} sm={6}>
 												<TextField
-													name="image"
+													name="images"
 													label="Hình ảnh"
 													type="file"
 													onChange={(event) => {
 														formmikProps.setFieldValue(
-															"image",
+															"images",
 															event.target.files[0]
 														);
 													}}
@@ -156,7 +162,12 @@ export default function Checkout(props) {
 										</Grid>
 									</React.Fragment>
 									<div className={classes.buttons}>
-										<Button className={classes.button}>Trở về</Button>
+										<Button
+											onClick={handleBack}
+											className={classes.button}
+										>
+											Trở về
+										</Button>
 
 										<Button
 											variant="contained"

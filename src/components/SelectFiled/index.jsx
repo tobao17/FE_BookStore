@@ -55,7 +55,7 @@ function SelectField(props) {
 			>
 				{options.length > 0 &&
 					options.map((item) => (
-						<MenuItem value={item.value}>{item.lable}</MenuItem>
+						<MenuItem value={item._id}>{item.name}</MenuItem>
 					))}
 			</TextField>
 		</Grid>

@@ -58,16 +58,37 @@ const CustomerListView = () => {
 
 		getData()();
 		return () => {};
-	}, []);
+	});
+
+	const deleteData = async (value) => {
+		function onSuccess(data) {
+			dispatch({ type: "DELETE_BOOk", payload: data });
+			return;
+		}
+
+		try {
+			const response = await bookApi.delete(value);
+			onSuccess(value);
+			console.log(value);
+
+			return;
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	function handleFiltersChanse(newFilter) {
 		console.log("new value" + newFilter);
 	}
+	function handleDelete(value) {
+		deleteData(value);
+	}
+
 	return (
 		<Container maxWidth={false}>
 			<Toolbar onSubmit={handleFiltersChanse} />
 			<Box mt={3}>
-				<TableCustomer customers={listBook} />
+				<TableCustomer onRemoveClick={handleDelete} customers={listBook} />
 			</Box>
 		</Container>
 	);

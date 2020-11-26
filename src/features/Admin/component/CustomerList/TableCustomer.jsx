@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import clsx from "clsx";
 import PropTypes from "prop-types";
-import moment from "moment";
+import { useConfirm } from "material-ui-confirm";
+
 import PerfectScrollbar from "react-perfect-scrollbar";
 import {
 	Avatar,
@@ -28,7 +29,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const Results = ({ className, customers, ...rest }) => {
+const Results = ({ className, customers, onRemoveClick, ...rest }) => {
+	const confirm = useConfirm();
 	//console.log(customers);
 	const classes = useStyles();
 	const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
@@ -53,6 +55,18 @@ const Results = ({ className, customers, ...rest }) => {
 
 	const handlePageChange = (event, newPage) => {
 		setPage(newPage);
+	};
+
+	///handle lai phai dua len tren khong co thoi gian lam luon
+	const handledelete = (value) => {
+		confirm({
+			title: "Thông Báo",
+			description: "Bạn có muốn xóa sản phẩm này?",
+		})
+			.then(() => {
+				onRemoveClick(value);
+			})
+			.catch(() => {});
 	};
 
 	return (
@@ -104,7 +118,9 @@ const Results = ({ className, customers, ...rest }) => {
 										<IconButton>
 											<Edit style={{ color: "#222" }}></Edit>
 										</IconButton>
-										<IconButton>
+										<IconButton
+											onClick={() => handledelete(customer.id)}
+										>
 											<Delete style={{ color: "tomato" }}></Delete>
 										</IconButton>
 									</TableCell>
@@ -128,8 +144,11 @@ const Results = ({ className, customers, ...rest }) => {
 };
 
 Results.propTypes = {
-	className: PropTypes.string,
-	customers: PropTypes.array.isRequired,
+	onRemoveClick: PropTypes.func,
+};
+
+Results.defaultProps = {
+	onRemoveClick: null,
 };
 
 export default Results;

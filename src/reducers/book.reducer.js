@@ -10,6 +10,23 @@ const bookReducer = (state = initialState, action) => {
 			return { ...state };
 		}
 
+		case "ADD_BOOk": {
+			state.books.push(action.payload);
+			console.log(state.books);
+			return {
+				...state,
+			};
+		}
+		case "DELETE_BOOk": {
+			const index = state.books.map((item, index) => {
+				if (item.id === action.payload) return index;
+			});
+			state.books.splice(index, 1);
+
+			return {
+				...state,
+			};
+		}
 		default:
 			return { ...state };
 	}
