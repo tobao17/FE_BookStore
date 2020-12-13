@@ -1,8 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { TextField, Grid } from "@material-ui/core";
-import { ErrorMessage } from "formik";
-import FormControl from "@material-ui/core/FormControl";
 InputField.propTypes = {
 	field: PropTypes.object.isRequired,
 	form: PropTypes.object.isRequired,

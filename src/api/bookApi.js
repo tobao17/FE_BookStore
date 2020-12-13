@@ -8,10 +8,15 @@ const productApi = {
 		const url = `/books/create`;
 		return axiosClient.post(url, data);
 	},
-	get: (id) => {
-		const url = `/products/${id}`;
+	update: (data) => {
+		const url = `books/update`;
+		return axiosClient.post(url, data);
+	},
+	getOne: (id) => {
+		const url = `/books/getbook/${id}`;
 		return axiosClient.get(url);
 	},
+
 	delete: (id) => {
 		const url = `/books/delete/${id}`;
 		return axiosClient.get(url);

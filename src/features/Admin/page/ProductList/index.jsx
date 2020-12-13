@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Box, Container, makeStyles } from "@material-ui/core";
-import { connect } from "react-redux";
 import Toolbar from "./ToolBar";
-import TableCustomer from "./TableCustomer";
+import TableProduct from "./TableProduct";
 import bookApi from "../../../../api/bookApi";
 import { useDispatch, useSelector } from "react-redux";
 import { getBooks } from "../../../../actions/books";
@@ -18,8 +17,8 @@ const useStyles = makeStyles((theme) => ({
 const CustomerListView = () => {
 	const classes = useStyles();
 	const listBook = useSelector((state) => state.book.books);
+	//console.log("day la list book" + listBook.length);
 	const dispatch = useDispatch();
-	const [customers, setState] = React.useState([]);
 	useEffect(() => {
 		//	lưu data
 		function getData() {
@@ -28,49 +27,33 @@ const CustomerListView = () => {
 					dispatch({ type: "GET_BOOKS", payload: success });
 					return success;
 				}
-
 				try {
 					const response = await bookApi.getAll({});
-					var books = [];
-					console.log(response);
+					const booksData = response.books;
 
-					for (let i = 0; i < response.length; i++) {
-						const result = {
-							id: response[i]._id,
-							name: response[i].title,
-							description: response[i].description,
-							author: response[i].author,
-							category: response[i].category.name,
-							image: response[i].images,
-							price: response[i].price.toString().includes(".")
-								? response[i].price + "00đ"
-								: response[i].price + ".000đ",
-						};
-						books.push(result);
-					}
-
-					return onSuccess(books);
+					return onSuccess(booksData);
 				} catch (error) {
 					console.log(error);
 				}
 			};
 		}
 
-		getData()();
-		return () => {};
-	});
+		//	console.log(listBook.length);
 
-	const deleteData = async (value) => {
-		function onSuccess(data) {
-			dispatch({ type: "DELETE_BOOk", payload: data });
-			return;
+		if (listBook.length < 2) {
+			//0 khi chua co du   //1 khi them hay edit--> reload truoc khi them --> mat du lieu
+			getData()();
 		}
 
-		try {
-			const response = await bookApi.delete(value);
-			onSuccess(value);
-			console.log(value);
+		return () => {};
+	}, []);
 
+	const deleteData = async (value) => {
+		console.log(value);
+		try {
+			await bookApi.delete(value).then((res) => {
+				dispatch({ type: "DELETE_BOOk", payload: value });
+			});
 			return;
 		} catch (error) {
 			console.log(error);
@@ -88,9 +71,29 @@ const CustomerListView = () => {
 		<Container maxWidth={false}>
 			<Toolbar onSubmit={handleFiltersChanse} />
 			<Box mt={3}>
-				<TableCustomer onRemoveClick={handleDelete} customers={listBook} />
+				<TableProduct onRemoveClick={handleDelete} listbooks={listBook} />
 			</Box>
 		</Container>
 	);
 };
 export default CustomerListView;
+
+//custom view list product ---> loai
+// var books = [];
+// for (let i = 0; i < booksData.length; i++) {
+// 	const result = {
+// 		id: booksData[i]._id,
+// 		title: booksData[i].title,
+// 		description: booksData[i].description,
+// 		author: booksData[i].author,
+// 		category: booksData[i].category.name,
+// 		categoryId: booksData[i].category._id,
+// 		images: booksData[i].images,
+// 		price: booksData[i].price,
+// 		quantity: booksData[i].quantity,
+// 		// .toString().includes(".")
+// 		// 	? booksData[i].price + "00đ"
+// 		// 	: booksData[i].price + ".000đ",
+// 	};
+// 	books.push(result);
+// }

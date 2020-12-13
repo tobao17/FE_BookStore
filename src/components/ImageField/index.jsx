@@ -1,49 +1,50 @@
-import PropTypes from "prop-types";
-import React from "react";
-import { TextField, Grid } from "@material-ui/core";
-import { ErrorMessage } from "formik";
-import FormControl from "@material-ui/core/FormControl";
-InputField.propTypes = {
-	field: PropTypes.object.isRequired,
-	form: PropTypes.object.isRequired,
-	type: PropTypes.string,
-	label: PropTypes.string,
-	placeholder: PropTypes.string,
-	disabled: PropTypes.bool,
-};
+import React, { useEffect, useState } from "react";
+import "./index.css";
+function ImageField(props) {
+	let Url =
+		"https://increasify.com.au/wp-content/uploads/2016/08/default-image.png";
 
-InputField.defaultProps = {
-	type: "text",
-	label: "",
-	placeholder: "",
-	disabled: false,
-};
-
-function InputField(props) {
-	const { field, form, type, label, placeholder, disabled, xs, xm } = props;
-	const { name } = field;
-
-	const { errors, touched } = form;
-	const showError = errors[name] && touched[name];
-	function handleChange(event) {
-		form.setFieldValue("image", event.target.files[0]);
+	if (props.Imageurl) {
+		Url = props.Imageurl;
+		//console.log(Url);
 	}
+	const [image, setimage] = useState(Url);
+	useEffect(() => {
+		setimage(Url);
+	}, [Url]);
+
+	const onchangeimage = (e) => {
+		const reader = new FileReader();
+		reader.readAsDataURL(e.target.files[0]); //tim hieu readerAsDataUrl
+		reader.onload = () => {
+			if (reader.readyState === 2) {
+				setimage(reader.result);
+			}
+		};
+		props.onchange(e.target.files[0]);
+	};
+
 	return (
-		<Grid item xs={xs} sm={xm}>
-			<TextField
-				required
-				id={name}
-				name={name}
-				{...field}
-				type={type}
-				fullWidth
-				label={label}
-				disabled={disabled}
-				placeholder={placeholder}
-				invalid={showError}
-			/>
-		</Grid>
+		<div>
+			<div className="container">
+				<div className="label">
+					<label className="image-upload" htmlFor="input">
+						Chọn Hình
+					</label>
+				</div>
+				<div className="img-holder">
+					<img src={image} alt="" id="img" className="img" />
+				</div>
+				<input
+					type="file"
+					accept="image/*"
+					name="image-upload"
+					id="input"
+					onChange={onchangeimage}
+				/>
+			</div>
+		</div>
 	);
 }
 
-export default InputField;
+export default ImageField;

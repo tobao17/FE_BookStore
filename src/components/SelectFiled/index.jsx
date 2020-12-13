@@ -22,26 +22,27 @@ SelectField.defaultProps = {
 };
 
 function SelectField(props) {
-	const { field, form, options, label, placeholder, disabled, xs, xm } = props;
+	const { field, form, options, label, xs, xm, defaultValue } = props;
+
 	const { name, value } = field;
 	const { errors, touched } = form;
-	const showError = errors[name] && touched[name];
+	//	const showError = errors[name] && touched[name];
 
-	const selectedOption = options.find((option) => option.value === value);
+	// const selectedOption = options.find((option) => option.value === value);
 
-	const handleSelectedOptionChange = (selectedOption) => {
-		const selectedValue = selectedOption
-			? selectedOption.value
-			: selectedOption;
+	// const handleSelectedOptionChange = (selectedOption) => {
+	// 	const selectedValue = selectedOption
+	// 		? selectedOption.value
+	// 		: selectedOption;
 
-		const changeEvent = {
-			target: {
-				name: name,
-				value: selectedValue,
-			},
-		};
-		field.onChange(changeEvent);
-	};
+	// 	const changeEvent = {
+	// 		target: {
+	// 			name: name,
+	// 			value: selectedValue,
+	// 		},
+	// 	};
+	// 	field.onChange(changeEvent);
+	// };
 
 	return (
 		<Grid item xs={xs} sm={xm}>

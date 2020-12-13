@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Outlet } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
-import NavBar from "../component/NavBar/index";
-import TopBar from "../component/TopBar";
-import CustomerList from "../component/CustomerList";
+import NavBar from "../../../components/NavBar";
+import TopBar from "../../../components/TopBar";
+import ProductList from "../page/ProductList/index";
 import Addbook from "./Addbook";
 import NotFound from "../../../components/NotFound";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
@@ -53,12 +52,12 @@ const DashboardLayout = () => {
 				<div className={classes.contentContainer}>
 					<div className={classes.content}>
 						<Switch>
-							<Route exact path={match.url} component={CustomerList} />
+							<Route exact path={match.url} component={ProductList} />
 
 							<Route path={`${match.url}/add`} component={Addbook} />
 							<Route
-								path={`${match.url}/add/ac`}
-								component={CustomerList}
+								path={`${match.url}/edit/:bookId`}
+								component={Addbook}
 							/>
 
 							<Route component={NotFound} />

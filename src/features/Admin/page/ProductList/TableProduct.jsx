@@ -2,13 +2,11 @@ import React, { useState } from "react";
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import { useConfirm } from "material-ui-confirm";
-
 import PerfectScrollbar from "react-perfect-scrollbar";
 import {
 	Avatar,
 	Box,
 	Card,
-	Checkbox,
 	Table,
 	TableBody,
 	TableCell,
@@ -21,6 +19,7 @@ import {
 } from "@material-ui/core";
 //import getInitials from "src/utils/getInitials";
 import { Edit, Delete } from "@material-ui/icons";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
 	root: {},
@@ -29,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const Results = ({ className, customers, onRemoveClick, ...rest }) => {
+const Results = ({ className, listbooks, onRemoveClick, ...rest }) => {
 	const confirm = useConfirm();
 	//console.log(customers);
 	const classes = useStyles();
@@ -37,11 +36,12 @@ const Results = ({ className, customers, onRemoveClick, ...rest }) => {
 	const [limit, setLimit] = useState(10);
 	const [page, setPage] = useState(0);
 
+	const history = useHistory();
 	const handleSelectAll = (event) => {
 		let newSelectedCustomerIds;
 
 		if (event.target.checked) {
-			newSelectedCustomerIds = customers.map((customer) => customer.id);
+			newSelectedCustomerIds = listbooks.map((book) => book.id);
 		} else {
 			newSelectedCustomerIds = [];
 		}
@@ -58,7 +58,7 @@ const Results = ({ className, customers, onRemoveClick, ...rest }) => {
 	};
 
 	///handle lai phai dua len tren khong co thoi gian lam luon
-	const handledelete = (value) => {
+	const handleDelete = (value) => {
 		confirm({
 			title: "Thông Báo",
 			description: "Bạn có muốn xóa sản phẩm này?",
@@ -69,6 +69,11 @@ const Results = ({ className, customers, onRemoveClick, ...rest }) => {
 			.catch(() => {});
 	};
 
+	const handleEdit = (value) => {
+		const editUrl = `admin/edit/${value}`;
+		history.push(editUrl);
+	};
+
 	return (
 		<Card className={clsx(classes.root, className)} {...rest}>
 			<PerfectScrollbar>
@@ -76,50 +81,52 @@ const Results = ({ className, customers, onRemoveClick, ...rest }) => {
 					<Table>
 						<TableHead>
 							<TableRow>
-								<TableCell>STT</TableCell>
+								{/* <TableCell>STT</TableCell> */}
 								<TableCell>Tên</TableCell>
+								<TableCell>Số Lượng</TableCell>
 								<TableCell>Thể Loại</TableCell>
-								<TableCell>Tác giả</TableCell>
+								<TableCell>Tác Giả</TableCell>
 								<TableCell>Giá</TableCell>
 								<TableCell>Thao Tác</TableCell>
 							</TableRow>
 						</TableHead>
 						<TableBody>
-							{customers.slice(0, limit).map((customer, index) => (
+							{listbooks.map((book, index) => (
 								<TableRow
 									hover
-									key={customer.id}
+									key={book._id}
 									selected={
-										selectedCustomerIds.indexOf(customer.id) !== -1
+										selectedCustomerIds.indexOf(book._id) !== -1
 									}
 								>
-									<TableCell>{index + 1}</TableCell>
+									{/* <TableCell>{index + 1}</TableCell> */}
 									<TableCell>
 										<Box alignItems="center" display="flex">
 											<Avatar
 												className={classes.avatar}
-												src={customer.image}
+												src={book.images}
 											>
-												{customer.image}
+												{book.images}
 											</Avatar>
 											<Typography
 												color="textPrimary"
 												variant="body1"
 											>
-												{customer.name}
+												{book.title}
 											</Typography>
 										</Box>
 									</TableCell>
-									<TableCell>{customer.category}</TableCell>
-									<TableCell>{customer.author}</TableCell>
+									<TableCell>{book.quantity}</TableCell>
+									<TableCell>{book.category.name}</TableCell>
 
-									<TableCell>{customer.price}</TableCell>
+									<TableCell>{book.author}</TableCell>
+									<TableCell>{book.price}</TableCell>
 									<TableCell>
-										<IconButton>
+										<IconButton onClick={() => handleEdit(book._id)}>
 											<Edit style={{ color: "#222" }}></Edit>
 										</IconButton>
 										<IconButton
-											onClick={() => handledelete(customer.id)}
+											onClick={() => handleDelete(book._id)}
 										>
 											<Delete style={{ color: "tomato" }}></Delete>
 										</IconButton>
@@ -132,7 +139,7 @@ const Results = ({ className, customers, onRemoveClick, ...rest }) => {
 			</PerfectScrollbar>
 			<TablePagination
 				component="div"
-				count={customers.length}
+				count={listbooks.length}
 				onChangePage={handlePageChange}
 				onChangeRowsPerPage={handleLimitChange}
 				page={page}

@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
@@ -52,32 +51,42 @@ const useStyles = makeStyles((theme) => ({
 }));
 Checkout.propTypes = {
 	onSubmit: PropTypes.func,
+	initialValues: PropTypes.object,
+	isAddForm: PropTypes.bool,
 };
 
 Checkout.defaultProps = {
 	onSubmit: null,
+	initialValues: {},
+	isAddForm: null,
 };
 export default function Checkout(props) {
 	const classes = useStyles();
-	const initialValues = {
-		title: "",
-		quantity: "",
-		author: "",
-		description: "",
-		images: "",
-		price: "",
-		category: "",
-	};
+	const { initialValues, isAddForm } = props;
 	const history = useHistory();
+	console.log(initialValues);
 	function handleBack(vaule) {
 		history.push("/admin");
 		return;
 	}
+	//image
 
 	return (
-		<Formik initialValues={initialValues} onSubmit={props.onSubmit}>
+		<Formik
+			initialValues={initialValues}
+			enableReinitialize //lap lai khi props thay doi =>vai dan
+			onSubmit={props.onSubmit}
+		>
 			{(formmikProps) => {
-				const { values, errors, touched } = formmikProps;
+				const InitialImageUrl = formmikProps.initialValues
+					? formmikProps.initialValues.images
+					: null;
+
+				//		console.log(InitialImageUrl);
+				function handlelForm(value) {
+					console.log(value);
+					formmikProps.setFieldValue("images", value);
+				}
 				return (
 					<Form>
 						<React.Fragment>
@@ -87,8 +96,9 @@ export default function Checkout(props) {
 								<Paper className={classes.paper}>
 									<React.Fragment>
 										<Typography variant="h6" gutterBottom>
-											Thêm Sách
+											{isAddForm ? "Thêm Sách" : "Cập Nhật Sách"}
 										</Typography>
+
 										<Grid container spacing={3}>
 											<FastField
 												name="title"
@@ -123,34 +133,14 @@ export default function Checkout(props) {
 												xm={6}
 											></FastField>
 											<FastField
-												name="category"
+												name="categoryId"
 												label="Thể loại"
 												component={SelectField}
 												options={global}
 												xs={12}
-												xm={6}
+												xm={12}
 											></FastField>
-											{/* <FastField
-												name="image"
-												label="Hình ảnh"
-												component={ImageField}
-												type="file"
-												xs={12}
-												xm={6}
-											></FastField> */}
-											<Grid item xs={12} sm={6}>
-												<TextField
-													name="images"
-													label="Hình ảnh"
-													type="file"
-													onChange={(event) => {
-														formmikProps.setFieldValue(
-															"images",
-															event.target.files[0]
-														);
-													}}
-												/>
-											</Grid>
+
 											<FastField
 												name="description"
 												label="Miêu tả"
@@ -159,6 +149,13 @@ export default function Checkout(props) {
 												xm={12}
 												rows="5"
 											></FastField>
+
+											<Grid item xs={12} sm={12}>
+												<ImageField
+													Imageurl={InitialImageUrl}
+													onchange={handlelForm}
+												></ImageField>
+											</Grid>
 										</Grid>
 									</React.Fragment>
 									<div className={classes.buttons}>
@@ -175,7 +172,7 @@ export default function Checkout(props) {
 											type="submit"
 											className={classes.button}
 										>
-											Thêm
+											{isAddForm ? "Thêm" : "Cập Nhật"}
 										</Button>
 									</div>
 								</Paper>
