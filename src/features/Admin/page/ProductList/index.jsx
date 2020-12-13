@@ -4,6 +4,11 @@ import Toolbar from "./ToolBar";
 import TableProduct from "./TableProduct";
 import bookApi from "../../../../api/bookApi";
 import { useDispatch, useSelector } from "react-redux";
+import "react-notifications/lib/notifications.css";
+import {
+	NotificationContainer,
+	NotificationManager,
+} from "react-notifications";
 const useStyles = makeStyles((theme) => ({
 	root: {
 		backgroundColor: theme.palette.background.dark,
@@ -16,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
 const CustomerListView = () => {
 	const classes = useStyles();
 	const listBook = useSelector((state) => state.book.books);
+	const isNotice = useSelector((state) => state.book.notice);
 	//console.log("day la list book" + listBook.length);
 	const dispatch = useDispatch();
 	useEffect(() => {
@@ -43,6 +49,11 @@ const CustomerListView = () => {
 			//0 khi chua co du   //1 khi them hay edit--> reload truoc khi them --> mat du lieu
 			getData()();
 		}
+		if (isNotice.length !== 0) {
+			const { titlle, msg } = isNotice[0];
+
+			NotificationManager.success(msg, titlle, 1000);
+		}
 
 		return () => {};
 	}, []);
@@ -54,6 +65,7 @@ const CustomerListView = () => {
 		try {
 			await bookApi.delete(value).then((res) => {
 				dispatch({ type: "DELETE_BOOk", payload: value });
+				NotificationManager.warning("", "Xóa Thành Công", 1000);
 			});
 			return;
 		} catch (error) {
@@ -82,6 +94,7 @@ const CustomerListView = () => {
 
 	return (
 		<Container maxWidth={false}>
+			<NotificationContainer />
 			<Toolbar onSubmit={handleFiltersChanse} />
 			<Box mt={3}>
 				<TableProduct onRemoveClick={handleDelete} listbooks={listBook} />

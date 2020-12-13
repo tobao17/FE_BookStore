@@ -1,5 +1,6 @@
 const initialState = {
 	books: [],
+	notice: [],
 };
 
 const bookReducer = (state = initialState, action) => {
@@ -9,6 +10,12 @@ const bookReducer = (state = initialState, action) => {
 			//	const newlistBook = [...state.books];
 			state.books = action.payload;
 			return { ...state };
+		}
+		case "NOTICE": {
+			//	const newlistBook = [...state.books];
+			const noticemsg = [];
+			noticemsg.push(action.payload);
+			return { ...state, notice: noticemsg };
 		}
 		case "ADD_BOOk": {
 			const list = [...state.books];

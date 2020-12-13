@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
+import {
+	Paper,
+	Button,
+	Typography,
+	Grid,
+	CssBaseline,
+} from "@material-ui/core";
 import PropTypes from "prop-types";
+
 import { Formik, Form, FastField } from "formik";
 import InputField from "../../../../components/InputField";
 import SelectField from "../../../../components/SelectFiled";
 import ImageField from "../../../../components/ImageField";
 import global from "../../../../constants/global";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
 	appBar: {
@@ -64,7 +67,7 @@ export default function Checkout(props) {
 	const classes = useStyles();
 	const { initialValues, isAddForm } = props;
 	const history = useHistory();
-	console.log(initialValues);
+
 	function handleBack(vaule) {
 		history.push("/admin");
 		return;
