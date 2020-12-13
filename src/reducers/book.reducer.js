@@ -18,6 +18,14 @@ const bookReducer = (state = initialState, action) => {
 				books: list,
 			};
 		}
+
+		case "SEARCH_BOOk": {
+			const list = action.payload;
+			return {
+				...state,
+				books: list,
+			};
+		}
 		case "EDIT_BOOK": {
 			const list = [...state.books];
 			const index = list

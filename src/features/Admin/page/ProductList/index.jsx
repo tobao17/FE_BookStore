@@ -4,7 +4,6 @@ import Toolbar from "./ToolBar";
 import TableProduct from "./TableProduct";
 import bookApi from "../../../../api/bookApi";
 import { useDispatch, useSelector } from "react-redux";
-import { getBooks } from "../../../../actions/books";
 const useStyles = makeStyles((theme) => ({
 	root: {
 		backgroundColor: theme.palette.background.dark,
@@ -48,6 +47,8 @@ const CustomerListView = () => {
 		return () => {};
 	}, []);
 
+	///delete
+
 	const deleteData = async (value) => {
 		console.log(value);
 		try {
@@ -59,12 +60,24 @@ const CustomerListView = () => {
 			console.log(error);
 		}
 	};
-
-	function handleFiltersChanse(newFilter) {
-		console.log("new value" + newFilter);
-	}
 	function handleDelete(value) {
 		deleteData(value);
+	}
+
+	//search
+
+	const FiltersData = async (keyword) => {
+		try {
+			console.log(keyword);
+			await bookApi.search(keyword).then((res) => {
+				dispatch({ type: "SEARCH_BOOk", payload: res });
+			});
+		} catch (error) {}
+	};
+
+	function handleFiltersChanse(keyword) {
+		FiltersData(keyword);
+		//	console.log(keyword);
 	}
 
 	return (

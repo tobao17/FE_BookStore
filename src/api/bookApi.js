@@ -9,9 +9,15 @@ const productApi = {
 		return axiosClient.post(url, data);
 	},
 	update: (data) => {
-		const url = `books/update`;
+		const url = `/books/update`;
 		return axiosClient.post(url, data);
 	},
+
+	search: (data) => {
+		const url = `/books/search`;
+		return axiosClient.post(url, data);
+	},
+
 	getOne: (id) => {
 		const url = `/books/getbook/${id}`;
 		return axiosClient.get(url);

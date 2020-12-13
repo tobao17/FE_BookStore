@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import {
@@ -11,7 +11,7 @@ import {
 	SvgIcon,
 	makeStyles,
 } from "@material-ui/core";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Search as SearchIcon } from "react-feather";
 
 const useStyles = makeStyles((theme) => ({
@@ -25,17 +25,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Toolbar = ({ className, onSubmit, ...rest }) => {
-	const classes = useStyles();
-	const [searchTerm, setSearchTerm] = useState("");
-	function handleSearch(e) {
-		console.log(e.target.value);
-		setSearchTerm(e.target.value);
+	const typingTimeout = useRef(null); // giu gia tri idtimeout sau moi lan render  //KY THUAT DEBOUNCE
 
+	const classes = useStyles();
+	const [keyword, setSearchTerm] = useState(""); //giu gia tri input
+	function handleSearch(e) {
+		const textSearch = e.target.value;
+		setSearchTerm(textSearch);
 		if (!onSubmit) return;
-		const value = {
-			searchTerm,
-		};
-		onSubmit(value);
+		if (typingTimeout.current) {
+			clearTimeout(typingTimeout.current); //cho 300ms moi dc renderlai
+		}
+		console.log(typingTimeout.current);
+
+		typingTimeout.current = setTimeout(() => {
+			const value = {
+				keyword: textSearch,
+			};
+			onSubmit(value);
+		}, 300);
 	}
 
 	return (
@@ -56,8 +64,9 @@ const Toolbar = ({ className, onSubmit, ...rest }) => {
 											</InputAdornment>
 										),
 									}}
+									value={keyword}
 									onChange={handleSearch}
-									placeholder="Search book"
+									placeholder="Search book,author"
 									variant="outlined"
 								/>
 							</Box>
