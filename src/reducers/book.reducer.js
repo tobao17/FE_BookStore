@@ -14,7 +14,10 @@ const bookReducer = (state = initialState, action) => {
 		case "NOTICE": {
 			//	const newlistBook = [...state.books];
 			const noticemsg = [];
-			noticemsg.push(action.payload);
+			if (action.payload.title) {
+				noticemsg.push(action.payload);
+			}
+
 			return { ...state, notice: noticemsg };
 		}
 		case "ADD_BOOk": {

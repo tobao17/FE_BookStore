@@ -53,6 +53,11 @@ const CustomerListView = () => {
 			const { titlle, msg } = isNotice[0];
 
 			NotificationManager.success(msg, titlle, 1000);
+			dispatch({
+				type: "NOTICE",
+				payload: {},
+			});
+			// tra ve null
 		}
 
 		return () => {};
