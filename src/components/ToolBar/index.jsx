@@ -45,6 +45,9 @@ const Toolbar = ({ className, isOrder, onSubmit, ...rest }) => {
 			onSubmit(value);
 		}, 300);
 	}
+	const placeholder = isOrder
+		? "tìm mã đơn hàng,khách hàng,địa điểm giao"
+		: "Tim kiếm sách,tác giả";
 
 	return (
 		<div className={clsx(classes.root, className)} {...rest}>
@@ -66,7 +69,7 @@ const Toolbar = ({ className, isOrder, onSubmit, ...rest }) => {
 									}}
 									value={keyword}
 									onChange={handleSearch}
-									placeholder="Search book,author"
+									placeholder={placeholder}
 									variant="outlined"
 								/>
 							</Box>
