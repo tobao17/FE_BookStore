@@ -10,7 +10,7 @@ import {
 	NotificationManager,
 } from "react-notifications";
 
-const CustomerListView = () => {
+const BookListView = () => {
 	const listBook = useSelector((state) => state.book.books);
 	const isNotice = useSelector((state) => state.notice.msg);
 	//console.log("day la list book" + listBook.length);
@@ -99,7 +99,7 @@ const CustomerListView = () => {
 		</Container>
 	);
 };
-export default CustomerListView;
+export default BookListView;
 
 //custom view list product ---> loai
 // var books = [];
