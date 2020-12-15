@@ -4,6 +4,7 @@ import NavBar from "../../../components/NavBar";
 import TopBar from "../../../components/TopBar";
 import ProductList from "../page/ProductList/index";
 import Addbook from "./Addbook";
+import Order from "./Order";
 import NotFound from "../../../components/NotFound";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
@@ -51,13 +52,20 @@ const DashboardLayout = () => {
 				<div className={classes.contentContainer}>
 					<div className={classes.content}>
 						<Switch>
-							<Route exact path={match.url} component={ProductList} />
-
-							<Route path={`${match.url}/add`} component={Addbook} />
 							<Route
-								path={`${match.url}/edit/:bookId`}
+								exact
+								path={`${match.url}/book`}
+								component={ProductList}
+							/>
+							<Route
+								path={`${match.url}/book/add`}
 								component={Addbook}
 							/>
+							<Route
+								path={`${match.url}/book/edit/:bookId`}
+								component={Addbook}
+							/>
+							<Route path={`${match.url}/order`} component={Order} />
 
 							<Route component={NotFound} />
 						</Switch>

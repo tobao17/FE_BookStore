@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import AddFrom from "./AddFrom";
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -54,7 +53,7 @@ function AddBook(props) {
 			fetchData();
 		}
 		//
-	}, []);
+	}, [isAddForm, bookId, initialValues]);
 	function handleSubmit(value) {
 		return async (value) => {
 			try {

@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { TextField, Select, MenuItem, Grid } from "@material-ui/core";
-import { ErrorMessage } from "formik";
-import FormControl from "@material-ui/core/FormControl";
+import { TextField, MenuItem, Grid } from "@material-ui/core";
+// import { ErrorMessage } from "formik";
+// import FormControl from "@material-ui/core/FormControl";
 
 SelectField.propTypes = {
 	field: PropTypes.object.isRequired,
@@ -22,10 +22,10 @@ SelectField.defaultProps = {
 };
 
 function SelectField(props) {
-	const { field, form, options, label, xs, xm, defaultValue } = props;
+	const { field, options, label, xs, xm } = props;
 
-	const { name, value } = field;
-	const { errors, touched } = form;
+	const { name } = field;
+	//const { errors, touched } = form;
 	//	const showError = errors[name] && touched[name];
 
 	// const selectedOption = options.find((option) => option.value === value);

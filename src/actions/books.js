@@ -1,5 +1,4 @@
 export async function getBooks(books) {
-	console.log("cccc" + books);
 	return {
 		type: "GET_BOOKS",
 		payload: books,

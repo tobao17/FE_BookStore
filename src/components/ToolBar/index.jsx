@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const Toolbar = ({ className, onSubmit, ...rest }) => {
+const Toolbar = ({ className, isOrder, onSubmit, ...rest }) => {
 	const typingTimeout = useRef(null); // giu gia tri idtimeout sau moi lan render  //KY THUAT DEBOUNCE
 
 	const classes = useStyles();
@@ -71,11 +71,21 @@ const Toolbar = ({ className, onSubmit, ...rest }) => {
 								/>
 							</Box>
 						</CardContent>
-						<Box display="flex" m={1} justifyContent="flex-end">
-							<Button color="primary" variant="contained">
-								<Link to="/admin/add">Add Book</Link>
-							</Button>
-						</Box>
+						{!isOrder && (
+							<Box display="flex" m={1} justifyContent="flex-end">
+								<Button color="primary" variant="contained">
+									<Link
+										to="/admin/book/add"
+										style={{
+											textDecoration: "none",
+											color: "White",
+										}}
+									>
+										Thêm Sách
+									</Link>
+								</Button>
+							</Box>
+						)}
 					</Card>
 				</Box>
 			</Box>

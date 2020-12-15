@@ -32,22 +32,22 @@ const Results = ({ className, listbooks, onRemoveClick, ...rest }) => {
 	const confirm = useConfirm();
 	//console.log(customers);
 	const classes = useStyles();
-	const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
+	//const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
 	const [limit, setLimit] = useState(10);
 	const [page, setPage] = useState(0);
 
 	const history = useHistory();
-	const handleSelectAll = (event) => {
-		let newSelectedCustomerIds;
+	// const handleSelectAll = (event) => {
+	// 	let newSelectedCustomerIds;
 
-		if (event.target.checked) {
-			newSelectedCustomerIds = listbooks.map((book) => book.id);
-		} else {
-			newSelectedCustomerIds = [];
-		}
+	// 	if (event.target.checked) {
+	// 		newSelectedCustomerIds = listbooks.map((book) => book.id);
+	// 	} else {
+	// 		newSelectedCustomerIds = [];
+	// 	}
 
-		setSelectedCustomerIds(newSelectedCustomerIds);
-	};
+	// 	setSelectedCustomerIds(newSelectedCustomerIds);
+	// };
 
 	const handleLimitChange = (event) => {
 		setLimit(event.target.value);
@@ -70,7 +70,7 @@ const Results = ({ className, listbooks, onRemoveClick, ...rest }) => {
 	};
 
 	const handleEdit = (value) => {
-		const editUrl = `admin/edit/${value}`;
+		const editUrl = `/admin/book/edit/${value}`;
 		history.push(editUrl);
 	};
 
@@ -95,9 +95,9 @@ const Results = ({ className, listbooks, onRemoveClick, ...rest }) => {
 								<TableRow
 									hover
 									key={book._id}
-									selected={
-										selectedCustomerIds.indexOf(book._id) !== -1
-									}
+									// selected={
+									// 	selectedCustomerIds.indexOf(book._id) !== -1
+									// }
 								>
 									{/* <TableCell>{index + 1}</TableCell> */}
 									<TableCell>

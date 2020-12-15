@@ -1,6 +1,5 @@
 const initialState = {
 	books: [],
-	notice: [],
 };
 
 const bookReducer = (state = initialState, action) => {
@@ -11,15 +10,15 @@ const bookReducer = (state = initialState, action) => {
 			state.books = action.payload;
 			return { ...state };
 		}
-		case "NOTICE": {
-			//	const newlistBook = [...state.books];
-			const noticemsg = [];
-			if (action.payload.title) {
-				noticemsg.push(action.payload);
-			}
+		// case "NOTICE": {
+		// 	//	const newlistBook = [...state.books];
+		// 	const noticemsg = [];
+		// 	if (action.payload.title) {
+		// 		noticemsg.push(action.payload);
+		// 	}
 
-			return { ...state, notice: noticemsg };
-		}
+		// 	return { ...state, notice: noticemsg };
+		// }
 		case "ADD_BOOk": {
 			const list = [...state.books];
 			list.push(action.payload);

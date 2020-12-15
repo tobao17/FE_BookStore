@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { Box, Container, makeStyles } from "@material-ui/core";
-import Toolbar from "./ToolBar";
+import { Box, Container } from "@material-ui/core";
+import Toolbar from "../../../../components/ToolBar/index";
 import TableProduct from "./TableProduct";
 import bookApi from "../../../../api/bookApi";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,19 +9,10 @@ import {
 	NotificationContainer,
 	NotificationManager,
 } from "react-notifications";
-const useStyles = makeStyles((theme) => ({
-	root: {
-		backgroundColor: theme.palette.background.dark,
-		minHeight: "100%",
-		paddingBottom: theme.spacing(3),
-		paddingTop: theme.spacing(3),
-	},
-}));
 
 const CustomerListView = () => {
-	const classes = useStyles();
 	const listBook = useSelector((state) => state.book.books);
-	const isNotice = useSelector((state) => state.book.notice);
+	const isNotice = useSelector((state) => state.notice.msg);
 	//console.log("day la list book" + listBook.length);
 	const dispatch = useDispatch();
 	useEffect(() => {
@@ -39,6 +30,7 @@ const CustomerListView = () => {
 					return onSuccess(booksData);
 				} catch (error) {
 					console.log(error);
+					return;
 				}
 			};
 		}
@@ -61,7 +53,7 @@ const CustomerListView = () => {
 		}
 
 		return () => {};
-	}, []);
+	}, [isNotice, listBook, dispatch]);
 
 	///delete
 

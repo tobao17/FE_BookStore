@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
+import { Category, Reorder, Business, Book } from "@material-ui/icons";
 import {
 	Avatar,
 	Box,
-	Button,
 	Divider,
 	Drawer,
 	Hidden,
@@ -12,16 +12,12 @@ import {
 	Typography,
 	makeStyles,
 } from "@material-ui/core";
-import {
-	AlertCircle as AlertCircleIcon,
-	BarChart as BarChartIcon,
-	Lock as LockIcon,
-	Settings as SettingsIcon,
-	ShoppingBag as ShoppingBagIcon,
-	User as UserIcon,
-	UserPlus as UserPlusIcon,
-	Users as UsersIcon,
-} from "react-feather";
+
+// import {
+// 	AlertCircle as AlertCircleIcon,
+// 	ShoppingBag as ShoppingBagIcon,
+// 	User as UserIcon,
+// } from "react-feather";
 import NavItem from "./NavItem";
 
 const user = {
@@ -32,27 +28,32 @@ const user = {
 
 const items = [
 	{
-		href: "/app/products",
-		icon: ShoppingBagIcon,
-		title: "Products",
+		href: "/admin/book",
+		icon: Book,
+		title: "Quản lý Sách",
 	},
 	{
-		href: "/app/customers",
-		icon: UsersIcon,
-		title: "Customers",
+		href: "/admin/category",
+		icon: Category,
+		title: "Quản lý Loại Sách",
 	},
 
 	{
-		href: "/app/account",
-		icon: UserIcon,
-		title: "Account",
+		href: "/admin/order",
+		icon: Reorder,
+		title: "Quản lý Đơn Hàng",
 	},
-
 	{
 		href: "/404",
-		icon: AlertCircleIcon,
-		title: "Error",
+		icon: Business,
+		title: "Quản lý Bill",
 	},
+
+	// {
+	// 	href: "/404",
+	// 	icon: AlertCircleIcon,
+	// 	title: "Error",
+	// },
 ];
 
 const useStyles = makeStyles(() => ({
