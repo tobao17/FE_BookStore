@@ -13,9 +13,8 @@ import { Formik, Form, FastField } from "formik";
 import InputField from "../../../../components/InputField";
 import SelectField from "../../../../components/SelectFiled";
 import ImageField from "../../../../components/ImageField";
-import global from "../../../../constants/global";
+import { SELECT_CATEGORY } from "../../../../constants/global";
 import { useHistory } from "react-router-dom";
-
 const useStyles = makeStyles((theme) => ({
 	appBar: {
 		position: "relative",
@@ -66,10 +65,11 @@ Checkout.defaultProps = {
 export default function Checkout(props) {
 	const classes = useStyles();
 	const { initialValues, isAddForm } = props;
+
 	const history = useHistory();
 
 	function handleBack(vaule) {
-		history.push("/admin");
+		history.push("/admin/book");
 		return;
 	}
 	//image
@@ -139,7 +139,7 @@ export default function Checkout(props) {
 												name="categoryId"
 												label="Thể loại"
 												component={SelectField}
-												options={global}
+												options={SELECT_CATEGORY}
 												xs={12}
 												xm={12}
 											></FastField>

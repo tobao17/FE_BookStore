@@ -1,4 +1,4 @@
-const SelectOption = [
+export const SELECT_CATEGORY = [
 	{
 		_id: "5f789d047c17be338c676ef5",
 		name: "Văn học",
@@ -30,4 +30,18 @@ const SelectOption = [
 		__v: 0,
 	},
 ];
-export default SelectOption;
+
+export const SELECTTYPEORDER = [
+	{
+		id: 0,
+		name: "Xác nhận",
+	},
+	{
+		id: 1,
+		name: "Đang giao hàng",
+	},
+	{
+		id: 2,
+		name: "Hủy bỏ",
+	},
+];

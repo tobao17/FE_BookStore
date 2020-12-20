@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Container } from "@material-ui/core";
 import Toolbar from "../../../../components/ToolBar/index";
 import TableProduct from "./TableProduct";
@@ -13,10 +13,12 @@ import {
 const BookListView = () => {
 	const listBook = useSelector((state) => state.book.books);
 	const isNotice = useSelector((state) => state.notice.msg);
+
 	//console.log("day la list book" + listBook.length);
 	const dispatch = useDispatch();
 	useEffect(() => {
 		//	lưu data
+
 		function getData() {
 			return async () => {
 				function onSuccess(success) {
@@ -34,16 +36,13 @@ const BookListView = () => {
 				}
 			};
 		}
-
 		//	console.log(listBook.length);
-
 		if (listBook.length < 2) {
 			//0 khi chua co du   //1 khi them hay edit--> reload truoc khi them --> mat du lieu
 			getData()();
 		}
 		if (isNotice.length !== 0) {
 			const { titlle, msg } = isNotice[0];
-
 			NotificationManager.success(msg, titlle, 1000);
 			dispatch({
 				type: "NOTICE",
@@ -51,9 +50,10 @@ const BookListView = () => {
 			});
 			// tra ve null
 		}
-
+		console.log("đây là useeffect ");
+		// eslint-disable-next-line
 		return () => {};
-	}, [isNotice, listBook, dispatch]);
+	}, []);
 
 	///delete
 
@@ -86,6 +86,7 @@ const BookListView = () => {
 
 	function handleFiltersChanse(keyword) {
 		FiltersData(keyword);
+
 		//	console.log(keyword);
 	}
 
