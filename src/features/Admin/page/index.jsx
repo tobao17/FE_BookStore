@@ -6,6 +6,7 @@ import ProductList from "../page/ProductList/index";
 import Addbook from "./Addbook";
 import Order from "./Order";
 import OrderEdit from "./Order/EditOrder";
+import Bill from "./Bill";
 import NotFound from "../../../components/NotFound";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
@@ -75,7 +76,7 @@ const DashboardLayout = () => {
 								path={`${match.url}/order/edit/:orderId`}
 								component={OrderEdit}
 							/>
-
+							<Route path={`${match.url}/bill`} component={Bill} />
 							<Route component={NotFound} />
 						</Switch>
 					</div>

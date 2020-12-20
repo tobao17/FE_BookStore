@@ -44,7 +44,7 @@ const items = [
 		title: "Quản lý Đơn Hàng",
 	},
 	{
-		href: "/404",
+		href: "/admin/bill",
 		icon: Business,
 		title: "Quản lý Bill",
 	},
