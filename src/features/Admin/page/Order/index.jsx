@@ -3,9 +3,13 @@ import OrderList from "./LatestOrders";
 import ToolBar from "../../../../components/ToolBar";
 import orderApi from "../../../../api/orderApi";
 import { useDispatch, useSelector } from "react-redux";
-
+import {
+	NotificationContainer,
+	NotificationManager,
+} from "react-notifications";
 function Order(props) {
 	const listOrder = useSelector((state) => state.order.listOrder);
+	const isNotice = useSelector((state) => state.notice.msg);
 	const dispatch = useDispatch();
 	useEffect(() => {
 		//	lưu data
@@ -26,8 +30,16 @@ function Order(props) {
 				}
 			};
 		}
-
-		getData()();
+		if (listOrder.length === 0) getData()();
+		if (isNotice.length !== 0) {
+			const { titlle, msg } = isNotice[0];
+			NotificationManager.success(msg, titlle, 1000);
+			dispatch({
+				type: "NOTICE",
+				payload: {},
+			});
+			// tra ve null
+		}
 
 		return () => {};
 	}, []);
@@ -35,6 +47,7 @@ function Order(props) {
 		<div>
 			<ToolBar isOrder={true}></ToolBar>
 			<OrderList listOrder={listOrder}></OrderList>
+			<NotificationContainer />
 		</div>
 	);
 }

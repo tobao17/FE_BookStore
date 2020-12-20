@@ -4,5 +4,13 @@ const OrderApi = {
 		const url = "/order";
 		return axiosClient.get(url, { params });
 	},
+	getOne: (id) => {
+		const url = `/order/detail/${id}`;
+		return axiosClient.get(url);
+	},
+	update: (data) => {
+		const url = `/order/update`;
+		return axiosClient.post(url, data);
+	},
 };
 export default OrderApi;

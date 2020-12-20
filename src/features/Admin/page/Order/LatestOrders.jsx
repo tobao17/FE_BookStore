@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import clsx from "clsx";
 import moment from "moment";
-import { v4 as uuid } from "uuid";
+import { useHistory } from "react-router-dom";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import PropTypes from "prop-types";
 import {
@@ -21,7 +21,7 @@ import {
 	makeStyles,
 	IconButton,
 } from "@material-ui/core";
-import { Edit, Delete } from "@material-ui/icons";
+import { Edit } from "@material-ui/icons";
 import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 
 const useStyles = makeStyles(() => ({
@@ -32,6 +32,8 @@ const useStyles = makeStyles(() => ({
 }));
 
 const LatestOrders = ({ listOrder, ...rest }) => {
+	const history = useHistory();
+
 	const handleDelete = (value) => {
 		// confirm({
 		// 	title: "Thông Báo",
@@ -45,8 +47,8 @@ const LatestOrders = ({ listOrder, ...rest }) => {
 	};
 
 	const handleEdit = (value) => {
-		// const editUrl = `/admin/book/edit/${value}`;
-		// history.push(editUrl);
+		const editUrl = `/admin/order/edit/${value}`;
+		history.push(editUrl);
 		return;
 	};
 
@@ -61,6 +63,7 @@ const LatestOrders = ({ listOrder, ...rest }) => {
 					<Table>
 						<TableHead>
 							<TableRow>
+								<TableCell>Code</TableCell>
 								<TableCell>Khách hàng</TableCell>
 								<TableCell>Địa Chỉ</TableCell>
 								<TableCell>Tổng Tiền</TableCell>
@@ -78,6 +81,9 @@ const LatestOrders = ({ listOrder, ...rest }) => {
 						<TableBody>
 							{listOrder.map((order) => (
 								<TableRow hover key={order._id}>
+									<TableCell>
+										{order._id.slice(20).toUpperCase()}
+									</TableCell>
 									<TableCell>{order.user.username}</TableCell>
 									<TableCell>{order.address}</TableCell>
 									<TableCell>{order.totalrice}</TableCell>
@@ -102,7 +108,7 @@ const LatestOrders = ({ listOrder, ...rest }) => {
 										)}
 									</TableCell>
 									<TableCell>
-										<IconButton onClick={() => handleEdit()}>
+										<IconButton onClick={() => handleEdit(order._id)}>
 											<Edit style={{ color: "#222" }}></Edit>
 										</IconButton>
 									</TableCell>

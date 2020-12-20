@@ -10,7 +10,21 @@ const OrderReducer = (state = initialState, action) => {
 			state.listOrder = action.payload;
 			return { ...state };
 		}
+		case "UPDATE_ORDERS": {
+			const list = [...state.listOrder];
+			const index = list
+				.map((item) => {
+					return item._id;
+				})
+				.indexOf(action.payload._id);
+			//get index state
 
+			list[index] = action.payload;
+			return {
+				...state,
+				listOrder: list,
+			};
+		}
 		default:
 			return { ...state };
 	}
