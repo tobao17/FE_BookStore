@@ -36,15 +36,16 @@
 		"uuid": "^8.3.0",
 		"yup": "^0.29.3"
 	},
-	"scripts": {
-		"start": "node server.js",  //  "react-scripts start",
+	"scripts": { 
+		"start": "node server.js",  
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject"
+
 	},
 
 
-	
+
 	"eslintConfig": {
 		"extends": "react-app"
 	},
