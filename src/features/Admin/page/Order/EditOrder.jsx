@@ -60,7 +60,6 @@ export default function Checkout() {
 	const history = useHistory();
 	const classes = useStyles();
 	const { orderId } = useParams();
-
 	const [progess, setProgess] = useState(false);
 	const [detailOrder, setDetailOrder] = useState({
 		userName: "",
