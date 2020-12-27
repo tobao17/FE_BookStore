@@ -176,6 +176,13 @@ export default function Checkout() {
 		setProgess(true);
 		await OrderApi.update(data).then((res) => {
 			dispatch({ type: "UPDATE_ORDERS", payload: res.data });
+
+			if (data.status == 1) {
+				dispatch({ type: "GET_BOOKS", payload: [] }); //tam thoi cho chay lai--> fix tren reducer sau
+			}
+			if (data.status == 3 && status == 1) {
+				dispatch({ type: "GET_BOOKS", payload: [] }); //tam thoi cho chay lai--> fix tren reducer sau
+			}
 			dispatch({
 				type: "NOTICE",
 				payload: {
