@@ -17,7 +17,7 @@ function Order(props) {
 			return async () => {
 				try {
 					await orderApi.getAll({}).then((res) => {
-						console.log(res);
+						//		console.log(res);
 						if (res.data) {
 							dispatch({ type: "GET_ORDERS", payload: res.data });
 						}

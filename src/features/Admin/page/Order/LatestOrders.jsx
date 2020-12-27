@@ -4,6 +4,7 @@ import moment from "moment";
 import { useHistory } from "react-router-dom";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import PropTypes from "prop-types";
+
 import {
 	Box,
 	Button,
@@ -103,8 +104,14 @@ const LatestOrders = ({ listOrder, ...rest }) => {
 												label={"đang giao hàng"}
 												size="small"
 											/>
-										) : (
+										) : order.status == 3 ? (
 											<Chip color="" label={"đã hủy"} size="small" />
+										) : (
+											<Chip
+												style={{ backgroundColor: "#4ac272" }}
+												label={"Hoàn Thành"}
+												size="small"
+											/>
 										)}
 									</TableCell>
 									<TableCell>

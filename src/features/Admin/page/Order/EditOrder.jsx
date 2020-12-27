@@ -4,6 +4,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import MenuItem from "@material-ui/core/MenuItem";
+import Select from "@material-ui/core/Select";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import { ListItemText, ListItemAvatar, Avatar } from "@material-ui/core";
@@ -14,8 +15,6 @@ import TextField from "@material-ui/core/TextField";
 import { useHistory, useParams } from "react-router-dom";
 import OrderApi from "../../../../api/orderApi";
 import { useDispatch } from "react-redux";
-import Backdrop from "@material-ui/core/Backdrop";
-import CircularProgress from "@material-ui/core/CircularProgress";
 const useStyles = makeStyles((theme) => ({
 	appBar: {
 		position: "relative",
@@ -61,6 +60,7 @@ export default function Checkout() {
 	const classes = useStyles();
 	const { orderId } = useParams();
 	const [progess, setProgess] = useState(false);
+	const [selectOption, setselectOption] = useState([]);
 	const [detailOrder, setDetailOrder] = useState({
 		userName: "",
 		address: "",
@@ -73,12 +73,63 @@ export default function Checkout() {
 		totalrice: "",
 	});
 
+	const [status, setStatus] = useState(0);
+	useEffect(() => {
+		//	console.log(detailOrder.status);
+
+		let option = [];
+
+		if (status === 0) {
+			option = SELECTTYPEORDER.map((item) => {
+				if (item.id !== 2) item.isSelect = true;
+				else item.isSelect = false;
+				return item;
+			});
+			console.log(option);
+		}
+		if (status === 1) {
+			option = SELECTTYPEORDER.map((item) => {
+				console.log(item);
+				if (item.id != 0) {
+					console.log(item.id);
+					item.isSelect = true;
+				} else item.isSelect = false;
+				return item;
+			});
+			console.log(option);
+		}
+		if (status === 2) {
+			option = SELECTTYPEORDER.map((item) => {
+				if (item.id == 2 || item.id == 3) item.isSelect = true;
+				else item.isSelect = false;
+				return item;
+			});
+			console.log(option);
+		}
+		if (status === 3) {
+			option = SELECTTYPEORDER.map((item) => {
+				if (item.id === 3) {
+					item.isSelect = true;
+				} else item.isSelect = false;
+				return item;
+			});
+			console.log(option);
+		}
+
+		setselectOption(option);
+
+		// console.log(option)
+
+		console.log(selectOption);
+	}, [status]);
+
 	useEffect(() => {
 		try {
 			async function fetchData() {
 				await OrderApi.getOne(orderId).then((res) => {
 					//	console.log(res);
 					if (res.data) {
+						setStatus(res.data.status);
 						setDetailOrder({
 							...detailOrder,
 							_id: res.data._id,
@@ -95,7 +146,7 @@ export default function Checkout() {
 					}
 				});
 			}
-			console.log(detailOrder);
+
 			if (detailOrder.userName === "") fetchData();
 		} catch (error) {
 			console.log(error);
@@ -103,7 +154,6 @@ export default function Checkout() {
 	}, [detailOrder]);
 
 	const getValue = (e) => {
-		console.log(e.target.value);
 		setDetailOrder({
 			...detailOrder,
 			status: e.target.value,
@@ -118,6 +168,10 @@ export default function Checkout() {
 		const data = {
 			OrderId: detailOrder._id,
 			status: detailOrder.status,
+			userName: detailOrder.userName,
+			products: detailOrder.products,
+			totalPrice: detailOrder.totalPrice,
+			preStatus: status,
 		};
 		setProgess(true);
 		await OrderApi.update(data).then((res) => {
@@ -135,6 +189,9 @@ export default function Checkout() {
 		return;
 	};
 
+	const handleOnclick = (e) => {
+		console.log(e);
+	};
 	return (
 		<>
 			<React.Fragment>
@@ -256,19 +313,32 @@ export default function Checkout() {
 							<hr></hr>
 							<br></br>
 							<Grid item xs={12} sm={6}>
-								<TextField
+								<Select
 									fullWidth
 									value={detailOrder.status}
 									onChange={getValue}
 									select
 								>
-									{SELECTTYPEORDER.length > 0 &&
-										SELECTTYPEORDER.map((item) => (
-											<MenuItem value={item.id}>
-												{item.name}
-											</MenuItem>
-										))}
-								</TextField>
+									{selectOption.length > 0 &&
+										selectOption.map((item) =>
+											item.isSelect === true ? (
+												<MenuItem
+													onClick={handleOnclick}
+													value={item.id}
+												>
+													{item.name}
+												</MenuItem>
+											) : (
+												<MenuItem
+													onClick={handleOnclick}
+													value={item.id}
+													disabled={true}
+												>
+													{item.name}
+												</MenuItem>
+											)
+										)}
+								</Select>
 							</Grid>
 						</React.Fragment>
 						<div className={classes.buttons}>

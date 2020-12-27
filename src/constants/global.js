@@ -42,6 +42,10 @@ export const SELECTTYPEORDER = [
 	},
 	{
 		id: 2,
+		name: "Hoàn Thành",
+	},
+	{
+		id: 3,
 		name: "Hủy bỏ",
 	},
 ];
