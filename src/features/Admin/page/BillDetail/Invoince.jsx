@@ -207,7 +207,7 @@ function Invoince(props) {
 				<Button onClick={handleBack} className={classes.button}>
 					Trở về
 				</Button>
-				<ReactToPdf targetRef={ref} filename="div-blue.pdf">
+				<ReactToPdf targetRef={ref} filename="utebook.pdf">
 					{({ toPdf }) => (
 						<Button
 							variant="contained"
