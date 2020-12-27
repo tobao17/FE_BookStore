@@ -2,6 +2,7 @@ import React, { Suspense } from "react";
 import Admin from "./features/Admin/page/index";
 import ForgotPass from "./features/Shop/ForgetPassWord/index";
 import NotFound from "./components/NotFound/index";
+
 import { ConfirmProvider } from "material-ui-confirm";
 import { Redirect, BrowserRouter, Route, Switch } from "react-router-dom";
 

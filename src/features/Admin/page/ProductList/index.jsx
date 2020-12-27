@@ -62,6 +62,7 @@ const BookListView = () => {
 		try {
 			await bookApi.delete(value).then((res) => {
 				dispatch({ type: "DELETE_BOOk", payload: value });
+
 				NotificationManager.warning("", "Xóa Thành Công", 1000);
 			});
 			return;
