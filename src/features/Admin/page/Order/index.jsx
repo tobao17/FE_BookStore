@@ -43,9 +43,28 @@ function Order(props) {
 
 		return () => {};
 	}, []);
+
+	const FiltersData = async (keyword) => {
+		try {
+			console.log(keyword);
+			await orderApi.search(keyword).then((res) => {
+				if (res.data) {
+					dispatch({ type: "SEARCH_ORDER", payload: res.data });
+				}
+			});
+		} catch (error) {}
+	};
+
+	function handleFiltersChanse(keyword) {
+		//console.log(keyword);
+		FiltersData(keyword);
+
+		//	console.log(keyword);
+	}
+
 	return (
 		<div>
-			<ToolBar isOrder={true}></ToolBar>
+			<ToolBar isOrder={true} onSubmit={handleFiltersChanse}></ToolBar>
 			<OrderList listOrder={listOrder}></OrderList>
 			<NotificationContainer />
 		</div>

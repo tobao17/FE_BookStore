@@ -10,6 +10,13 @@ const OrderReducer = (state = initialState, action) => {
 			state.listOrder = action.payload;
 			return { ...state };
 		}
+		case "SEARCH_ORDER": {
+			const list = action.payload;
+			return {
+				...state,
+				listOrder: list,
+			};
+		}
 		case "UPDATE_ORDERS": {
 			const list = [...state.listOrder];
 			const index = list
