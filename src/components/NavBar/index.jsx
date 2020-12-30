@@ -1,7 +1,13 @@
 import React, { useEffect } from "react";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
-import { Category, Reorder, Business, Book } from "@material-ui/icons";
+import {
+	Category,
+	Reorder,
+	Business,
+	Book,
+	SupervisedUserCircle,
+} from "@material-ui/icons";
 import {
 	Avatar,
 	Box,
@@ -38,6 +44,11 @@ const items = [
 		title: "Quản lý Loại Sách",
 	},
 
+	{
+		href: "/admin/user",
+		icon: SupervisedUserCircle,
+		title: "Quản lý Khách hàng",
+	},
 	{
 		href: "/admin/order",
 		icon: Reorder,

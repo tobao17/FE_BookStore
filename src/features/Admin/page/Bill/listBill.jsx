@@ -3,6 +3,7 @@ import clsx from "clsx";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
 import PerfectScrollbar from "react-perfect-scrollbar";
+import { useConfirm } from "material-ui-confirm";
 import PropTypes from "prop-types";
 import {
 	Box,
@@ -31,18 +32,19 @@ const useStyles = makeStyles(() => ({
 	},
 }));
 
-const Listbills = ({ listbill, ...rest }) => {
+const Listbills = ({ listbill, onRemoveClick, ...rest }) => {
+	const confirm = useConfirm();
 	const history = useHistory();
 
 	const handleDelete = (value) => {
-		// confirm({
-		// 	title: "Thông Báo",
-		// 	description: "Bạn có muốn xóa sản phẩm này?",
-		// })
-		// 	.then(() => {
-		// 		onRemoveClick(value);
-		// 	})
-		// 	.catch(() => {});
+		confirm({
+			title: "Thông Báo",
+			description: "Bạn có muốn xóa sản phẩm này?",
+		})
+			.then(() => {
+				onRemoveClick(value);
+			})
+			.catch(() => {});
 		return;
 	};
 
@@ -81,7 +83,7 @@ const Listbills = ({ listbill, ...rest }) => {
 							{listbill.map((bill) => (
 								<TableRow hover key={bill._id}>
 									<TableCell>
-										{bill._id.slice(20).toUpperCase()}
+										{bill.Order._id.slice(20).toUpperCase()}
 									</TableCell>
 									<TableCell>{bill.userName}</TableCell>
 									<TableCell>{bill.Order.address}</TableCell>
@@ -94,8 +96,10 @@ const Listbills = ({ listbill, ...rest }) => {
 										<IconButton onClick={() => handleEdit(bill._id)}>
 											<Print style={{ color: "#222" }}></Print>
 										</IconButton>
-										<IconButton onClick={() => handleEdit(bill._id)}>
-											<Delete style={{ color: "red" }}></Delete>
+										<IconButton
+											onClick={() => handleDelete(bill._id)}
+										>
+											<Delete style={{ color: "tomato" }}></Delete>
 										</IconButton>
 									</TableCell>
 								</TableRow>

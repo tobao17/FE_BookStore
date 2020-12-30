@@ -6,6 +6,7 @@ import ProductList from "../page/ProductList/index";
 import Addbook from "./Addbook";
 import Order from "./Order";
 import OrderEdit from "./Order/EditOrder";
+import CustomerList from "./Customer/index";
 import Bill from "./Bill";
 import BillDetail from "./BillDetail";
 import NotFound from "../../../components/NotFound";
@@ -76,6 +77,10 @@ const DashboardLayout = () => {
 							<Route
 								path={`${match.url}/order/edit/:orderId`}
 								component={OrderEdit}
+							/>
+							<Route
+								path={`${match.url}/user`}
+								component={CustomerList}
 							/>
 							<Route exact path={`${match.url}/bill`} component={Bill} />
 							<Route

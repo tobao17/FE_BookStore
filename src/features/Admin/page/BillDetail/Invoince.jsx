@@ -125,7 +125,9 @@ function Invoince(props) {
 								<Grid item xs={3}>
 									<div>
 										<h5>Hóa Đơn No.</h5>
-										<h4>{Billdetail._id.slice(18).toUpperCase()}</h4>
+										<h4>
+											{Billdetail.Order._id.slice(20).toUpperCase()}
+										</h4>
 									</div>
 								</Grid>
 								<Grid item xs={9}>
@@ -170,7 +172,7 @@ function Invoince(props) {
 														Tổng Tiền
 													</TableCell>
 
-													<TableCell align="right">
+													<TableCell align="left">
 														{Billdetail.totalPrice}
 													</TableCell>
 												</TableRow>
