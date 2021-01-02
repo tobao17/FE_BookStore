@@ -13,7 +13,7 @@ function App() {
 				<Suspense fallback={<div>Loading ...</div>}>
 					<BrowserRouter>
 						<Switch>
-							<Redirect exact from="/" to="/admin/book" />
+							<Redirect exact from="/" to="/sign-in" />
 							<Route path="/admin" component={Admin} />
 							<Route path="/forgotpass/:token" component={ForgotPass} />
 							<Route path="/sign-in" component={Login} />
