@@ -11,16 +11,20 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import apiUser from "../../../api/userApi";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
+import { GoogleLogin } from "react-google-login";
+
 import {
 	NotificationContainer,
 	NotificationManager,
 } from "react-notifications";
+import userApi from "../../../api/userApi";
 function Copyright() {
 	return (
 		<Typography variant="body2" color="textSecondary" align="center">
@@ -55,6 +59,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignIn() {
+	useEffect(() => {
+		//	lưu data
+
+		if (isNotice.length !== 0) {
+			const { titlle, msg } = isNotice[0];
+			NotificationManager.warning(msg, titlle, 1000);
+			dispatch({
+				type: "NOTICE",
+				payload: {},
+			});
+			// tra ve null
+		}
+
+		// eslint-disable-next-line
+		return () => {};
+	}, []);
+	const isNotice = useSelector((state) => state.notice.msg);
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const [name, setName] = useState("");
@@ -71,6 +92,35 @@ export default function SignIn() {
 		const pass = e.target.value;
 		setPassWord(pass);
 	}
+	const handleFacebook = (res) => {
+		// facebookLoginHandle(response.userID, response.accessToken);
+		const data = { userID: res.userID, token: res.accessToken };
+		try {
+			apiUser.loginfb(data).then((res) => console.log(res));
+		} catch (error) {}
+	};
+	const handleGoogle = async (res) => {
+		const token = res.tokenId;
+
+		console.log(token);
+		try {
+			await userApi.logingg({ token }).then((res) => {
+				if (res.accessToken) {
+					localStorage.setItem("token", res.accessToken);
+					localStorage.setItem("username", res.username);
+					dispatch({
+						type: "NOTICE",
+						payload: {
+							title: "Thông báo",
+							msg: "Đăng nhập thành công",
+						},
+					});
+					setProgess(false);
+					history.push("/admin/book");
+				}
+			});
+		} catch (error) {}
+	};
 	async function handleLogin() {
 		console.log(name, password);
 		const data = {
@@ -154,9 +204,48 @@ export default function SignIn() {
 						</Link>
 					</Grid>
 					<Grid item>
-						<Link href="#" variant="body2">
-							{"login by facebook"}
-						</Link>
+						<GoogleLogin
+							clientId="600298462719-rip8u175f9il4si9j1r596035csuh5mb.apps.googleusercontent.com"
+							onSuccess={handleGoogle}
+							onFailure={handleGoogle}
+							cookiePolicy={"single_host_origin"}
+							render={(renderProps) => (
+								<Button
+									//className="login__google"
+									type="primary"
+									style={{
+										display: "flex",
+										alignItems: "center",
+										backgroundColor: "#d73d32",
+									}}
+									danger
+									size={"large"}
+									onClick={renderProps.onClick}
+								>
+									google
+								</Button>
+							)}
+						/>{" "}
+						<FacebookLogin
+							appId="750523348882984"
+							autoLoad={false}
+							fields="name,email"
+							callback={handleFacebook}
+							render={(renderProps) => (
+								<Button
+									type="primary"
+									style={{
+										display: "flex",
+										alignItems: "center",
+										backgroundColor: "#0a426e",
+									}}
+									size={"large"}
+									onClick={renderProps.onClick}
+								>
+									facebook
+								</Button>
+							)}
+						/>
 					</Grid>
 				</Grid>
 			</div>

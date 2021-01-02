@@ -12,5 +12,13 @@ const userApi = {
 		const url = `user/login`;
 		return axiosClient.post(url, data);
 	},
+	logingg: (data) => {
+		const url = `user/signingg`;
+		return axiosClient.post(url, data);
+	},
+	loginfb: (data) => {
+		const url = `user/signinfb`;
+		return axiosClient.post(url, data);
+	},
 };
 export default userApi;

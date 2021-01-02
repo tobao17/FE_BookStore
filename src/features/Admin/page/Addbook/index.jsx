@@ -70,17 +70,39 @@ function AddBook(props) {
 				if (isAddForm) {
 					//ADD
 					setProgess(true);
-					await bookApi.create(data).then((res) => {
-						//lay duoc du lieu roi .then moi dispatch
-						dispatch({ type: "ADD_BOOk", payload: res.data });
-						dispatch({
-							type: "NOTICE",
-							payload: {
-								title: "Thông báo",
-								msg: "Thêm thành công!",
-							},
+					await bookApi
+						.create(data)
+						.then((res) => {
+							//lay duoc du lieu roi .then moi dispatch
+
+							if (res.data) {
+								dispatch({ type: "ADD_BOOk", payload: res.data });
+								dispatch({
+									type: "NOTICE",
+									payload: {
+										title: "Thông báo",
+										msg: "Thêm thành công!",
+									},
+								});
+							}
+							history.goBack();
+						})
+						.catch((err) => {
+							if (err) {
+								dispatch({
+									type: "NOTICE",
+									payload: {
+										title: "Thông báo",
+										msg: " Phiên đăng nhập của bạn đã hết hạn",
+									},
+								});
+								localStorage.setItem("token", null);
+								localStorage.setItem("username", null);
+								history.push("/sign-in");
+							}
+							//return;
 						});
-					});
+					setProgess(false);
 				} else {
 					//Edit
 
@@ -100,9 +122,7 @@ function AddBook(props) {
 						}
 					});
 				}
-				setProgess(false);
-
-				history.goBack();
+				//
 
 				return;
 			} catch (error) {

@@ -6,7 +6,13 @@ const productApi = {
 	},
 	create: (data) => {
 		const url = `/books/create`;
-		return axiosClient.post(url, data);
+		return axiosClient.post(url, data, {
+			headers: {
+				"content-type": "application/json",
+				"x-access-token": localStorage.getItem("token"),
+				//dua vao headers
+			},
+		});
 	},
 	update: (data) => {
 		const url = `/books/update`;
