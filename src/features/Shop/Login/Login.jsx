@@ -19,7 +19,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import { GoogleLogin } from "react-google-login";
-
+import FacebookIcon from "@material-ui/icons/Facebook";
+import EmailIcon from "@material-ui/icons/Email";
+import { IconButton } from "@material-ui/core";
 import {
 	NotificationContainer,
 	NotificationManager,
@@ -95,19 +97,34 @@ export default function SignIn() {
 	const handleFacebook = (res) => {
 		// facebookLoginHandle(response.userID, response.accessToken);
 		const data = { userID: res.userID, token: res.accessToken };
+		setProgess(true);
 		try {
-			apiUser.loginfb(data).then((res) => console.log(res));
+			apiUser.loginfb(data).then((res) => {
+				if (res.accessToken) {
+					localStorage.setItem("token", res.accessToken);
+
+					dispatch({
+						type: "NOTICE",
+						payload: {
+							title: "Thông báo",
+							msg: "Đăng nhập thành công",
+						},
+					});
+					setProgess(false);
+					history.push("/admin/book");
+				}
+			});
 		} catch (error) {}
 	};
 	const handleGoogle = async (res) => {
 		const token = res.tokenId;
-
+		setProgess(true);
 		console.log(token);
 		try {
 			await userApi.logingg({ token }).then((res) => {
 				if (res.accessToken) {
 					localStorage.setItem("token", res.accessToken);
-					localStorage.setItem("username", res.username);
+
 					dispatch({
 						type: "NOTICE",
 						payload: {
@@ -132,7 +149,7 @@ export default function SignIn() {
 			console.log(res);
 			if (res.accessToken) {
 				localStorage.setItem("token", res.accessToken);
-				localStorage.setItem("username", res.username);
+
 				dispatch({
 					type: "NOTICE",
 					payload: {
@@ -198,52 +215,56 @@ export default function SignIn() {
 					Sign In
 				</Button>
 				<Grid container>
-					<Grid item xs>
-						<Link href="#" variant="body2">
-							Forgot password?
-						</Link>
-					</Grid>
-					<Grid item>
+					<Grid container item>
+						<Grid item xs>
+							<Link href="#" variant="body2">
+								Forgot password?
+							</Link>
+						</Grid>
 						<GoogleLogin
 							clientId="600298462719-rip8u175f9il4si9j1r596035csuh5mb.apps.googleusercontent.com"
 							onSuccess={handleGoogle}
 							onFailure={handleGoogle}
 							cookiePolicy={"single_host_origin"}
 							render={(renderProps) => (
-								<Button
+								<IconButton
 									//className="login__google"
 									type="primary"
 									style={{
 										display: "flex",
 										alignItems: "center",
 										backgroundColor: "#d73d32",
+										color: "#fff",
+										marginRight: "5px",
 									}}
 									danger
 									size={"large"}
 									onClick={renderProps.onClick}
 								>
-									google
-								</Button>
+									<EmailIcon></EmailIcon>
+								</IconButton>
 							)}
-						/>{" "}
+						/>
+
 						<FacebookLogin
 							appId="750523348882984"
 							autoLoad={false}
 							fields="name,email"
 							callback={handleFacebook}
 							render={(renderProps) => (
-								<Button
+								<IconButton
 									type="primary"
 									style={{
 										display: "flex",
 										alignItems: "center",
 										backgroundColor: "#0a426e",
+										color: "#fff",
 									}}
 									size={"large"}
 									onClick={renderProps.onClick}
 								>
-									facebook
-								</Button>
+									<FacebookIcon></FacebookIcon>
+								</IconButton>
 							)}
 						/>
 					</Grid>

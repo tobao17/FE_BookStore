@@ -34,6 +34,7 @@ function AddBook(props) {
 	});
 
 	useEffect(() => {
+		console.log("adfa");
 		async function fetchData() {
 			await bookApi.getOne(bookId).then((res) => {
 				//	console.log(res);
@@ -53,7 +54,7 @@ function AddBook(props) {
 			fetchData();
 		}
 		//
-	}, [isAddForm, bookId, initialValues]);
+	}, []);
 	function handleSubmit(value) {
 		return async (value) => {
 			try {
@@ -119,8 +120,10 @@ function AddBook(props) {
 									msg: "Cập nhật thành công!",
 								},
 							});
+							history.goBack();
 						}
 					});
+					setProgess(false);
 				}
 				//
 

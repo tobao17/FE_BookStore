@@ -9,15 +9,22 @@ import {
 	NotificationContainer,
 	NotificationManager,
 } from "react-notifications";
-
+import { useHistory, useParams } from "react-router-dom";
 const BookListView = () => {
 	const listBook = useSelector((state) => state.book.books);
 	const isNotice = useSelector((state) => state.notice.msg);
 
 	//console.log("day la list book" + listBook.length);
 	const dispatch = useDispatch();
+	const history = useHistory();
 	useEffect(() => {
 		//	lưu data
+
+		let tokenlg = localStorage.getItem("token");
+		if (tokenlg === null) {
+			history.push("/sign-in");
+			return;
+		}
 
 		function getData() {
 			return async () => {

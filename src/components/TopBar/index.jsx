@@ -18,6 +18,7 @@ import NotificationsIcon from "@material-ui/icons/NotificationsOutlined";
 import InputIcon from "@material-ui/icons/Input";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
+import { useHistory, useParams } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
 	root: {},
@@ -31,10 +32,16 @@ const useStyles = makeStyles(() => ({
 }));
 
 const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
+	const history = useHistory();
 	const classes = useStyles();
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [open, setOpen] = React.useState(false);
 	const [placement, setPlacement] = React.useState();
+	const handleLogout = () => {
+		localStorage.removeItem("token");
+		localStorage.setItem("username", null);
+		history.push("/sign-in");
+	};
 
 	const handleClick = (newPlacement) => (event) => {
 		setAnchorEl(event.currentTarget);
@@ -87,12 +94,12 @@ const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
 							)}
 						</Popper>
 					</IconButton>
-					<IconButton color="inherit">
+					<IconButton color="inherit" onClick={handleLogout}>
 						<InputIcon />
 					</IconButton>
 				</Hidden>
 				<Hidden lgUp>
-					<IconButton color="inherit" onClick={onMobileNavOpen}>
+					<IconButton color="inherit">
 						<MenuIcon />
 					</IconButton>
 				</Hidden>
