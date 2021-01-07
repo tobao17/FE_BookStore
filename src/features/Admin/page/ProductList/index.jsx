@@ -77,11 +77,29 @@ const BookListView = () => {
 	const deleteData = async (value) => {
 		console.log(value);
 		try {
-			await bookApi.delete(value).then((res) => {
-				socket.emit("adminSend:", casual.uuid);
-				dispatch({ type: "DELETE_BOOk", payload: value });
-				NotificationManager.success("", "Xóa Thành Công", 1000);
-			});
+			await bookApi
+				.delete(value)
+				.then((res) => {
+					socket.emit("adminSend:", casual.uuid);
+					dispatch({ type: "DELETE_BOOk", payload: value });
+					NotificationManager.success("", "Xóa Thành Công", 1000);
+				})
+				.catch((err) => {
+					if (err) {
+						dispatch({
+							type: "NOTICE",
+							payload: {
+								title: "Thông báo",
+								msg: " Phiên đăng nhập của bạn đã hết hạn",
+							},
+						});
+
+						localStorage.setItem("token", null);
+						localStorage.setItem("username", null);
+						history.push("/sign-in");
+					}
+					//return;
+				});
 			return;
 		} catch (error) {
 			console.log(error);

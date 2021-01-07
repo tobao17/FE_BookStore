@@ -22,6 +22,7 @@ import { GoogleLogin } from "react-google-login";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import EmailIcon from "@material-ui/icons/Email";
 import { IconButton } from "@material-ui/core";
+
 import {
 	NotificationContainer,
 	NotificationManager,
@@ -102,6 +103,13 @@ export default function SignIn() {
 		try {
 			apiUser.loginfb(data).then((res) => {
 				if (res.accessToken) {
+					console.log(res);
+
+					// dispatch({
+					// 	type: "SETNAME",
+					// 	payload: res.username,
+					// });
+					localStorage.setItem("name", res.username);
 					localStorage.setItem("token", res.accessToken);
 					dispatch({
 						type: "NOTICE",
@@ -123,6 +131,8 @@ export default function SignIn() {
 		try {
 			await userApi.logingg({ token }).then((res) => {
 				if (res.accessToken) {
+					console.log(res);
+					localStorage.setItem("name", res.username);
 					localStorage.setItem("token", res.accessToken);
 					dispatch({
 						type: "NOTICE",
@@ -147,6 +157,8 @@ export default function SignIn() {
 		await apiUser.login(data).then((res) => {
 			console.log(res);
 			if (res.accessToken) {
+				console.log(res);
+				localStorage.setItem("name", res.username);
 				localStorage.setItem("token", res.accessToken);
 
 				dispatch({

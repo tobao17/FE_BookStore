@@ -1,5 +1,6 @@
 const initialState = {
 	listUser: [],
+	nameLogin: "",
 };
 
 const UserReducer = (state = initialState, action) => {
@@ -15,6 +16,14 @@ const UserReducer = (state = initialState, action) => {
 			return {
 				...state,
 				listUser: list,
+			};
+		}
+
+		case "SETNAME": {
+			const name = action.payload;
+			return {
+				...state,
+				nameLogin: name,
 			};
 		}
 		default:

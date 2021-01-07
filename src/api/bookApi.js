@@ -2,7 +2,17 @@ import axiosClient from "./axiosClient";
 const productApi = {
 	getAll: (params) => {
 		const url = "/books";
-		return axiosClient.get(url, { params });
+		return axiosClient.get(
+			url,
+			{ params },
+			{
+				headers: {
+					"content-type": "application/json",
+					"x-access-token": localStorage.getItem("token"),
+					//dua vao headers
+				},
+			}
+		);
 	},
 	create: (data) => {
 		const url = `/books/create`;
@@ -16,7 +26,13 @@ const productApi = {
 	},
 	update: (data) => {
 		const url = `/books/update`;
-		return axiosClient.post(url, data);
+		return axiosClient.post(url, data, {
+			headers: {
+				"content-type": "application/json",
+				"x-access-token": localStorage.getItem("token"),
+				//dua vao headers
+			},
+		});
 	},
 
 	search: (data) => {
@@ -31,7 +47,13 @@ const productApi = {
 
 	delete: (id) => {
 		const url = `/books/delete/${id}`;
-		return axiosClient.get(url);
+		return axiosClient.get(url, {
+			headers: {
+				"content-type": "application/json",
+				"x-access-token": localStorage.getItem("token"),
+				//dua vao headers
+			},
+		});
 	},
 };
 

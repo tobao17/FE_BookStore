@@ -39,7 +39,7 @@ const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
 	const [placement, setPlacement] = React.useState();
 	const handleLogout = () => {
 		localStorage.removeItem("token");
-		localStorage.setItem("username", null);
+		localStorage.removeItem("name");
 		history.push("/sign-in");
 	};
 
