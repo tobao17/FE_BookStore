@@ -99,21 +99,20 @@ export default function SignIn() {
 		const data = { userID: res.userID, token: res.accessToken };
 		setProgess(true);
 		try {
-			apiUser.loginfb(data).then((res) => {
-				if (res.accessToken) {
-					localStorage.setItem("token", res.accessToken);
-
-					dispatch({
-						type: "NOTICE",
-						payload: {
-							title: "Thông báo",
-							msg: "Đăng nhập thành công",
-						},
-					});
-					setProgess(false);
-					history.push("/admin/book");
-				}
-			});
+			// apiUser.loginfb(data).then((res) => {
+			// 	if (res.accessToken) {
+			// 		localStorage.setItem("token", res.accessToken);
+			// 		dispatch({
+			// 			type: "NOTICE",
+			// 			payload: {
+			// 				title: "Thông báo",
+			// 				msg: "Đăng nhập thành công",
+			// 			},
+			// 		});
+			// 		setProgess(false);
+			//		history.push("/admin/book");
+			// 	}
+			// });
 		} catch (error) {}
 	};
 	const handleGoogle = async (res) => {
@@ -221,7 +220,7 @@ export default function SignIn() {
 								Forgot password?
 							</Link>
 						</Grid>
-						<GoogleLogin
+						{/* <GoogleLogin
 							clientId="600298462719-rip8u175f9il4si9j1r596035csuh5mb.apps.googleusercontent.com"
 							onSuccess={handleGoogle}
 							onFailure={handleGoogle}
@@ -244,7 +243,7 @@ export default function SignIn() {
 									<EmailIcon></EmailIcon>
 								</IconButton>
 							)}
-						/>
+						/> */}
 
 						<FacebookLogin
 							appId="750523348882984"

@@ -5,11 +5,17 @@ import TableProduct from "./TableProduct";
 import bookApi from "../../../../api/bookApi";
 import { useDispatch, useSelector } from "react-redux";
 import "react-notifications/lib/notifications.css";
+
 import {
 	NotificationContainer,
 	NotificationManager,
 } from "react-notifications";
 import { useHistory, useParams } from "react-router-dom";
+import io from "socket.io-client";
+import casual from "casual-browserify";
+const ENDPOINT = process.env.ENDPOINT;
+let socket;
+
 const BookListView = () => {
 	const listBook = useSelector((state) => state.book.books);
 	const isNotice = useSelector((state) => state.notice.msg);
@@ -18,13 +24,17 @@ const BookListView = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	useEffect(() => {
+		socket = io(ENDPOINT); //realtime delete
+	}, [ENDPOINT]);
+
+	useEffect(() => {
 		//	lưu data
 
 		let tokenlg = localStorage.getItem("token");
-		if (tokenlg === null) {
-			history.push("/sign-in");
-			return;
-		}
+		// if (tokenlg === null) {
+		// 	history.push("/sign-in");
+		// 	return;
+		// }
 
 		function getData() {
 			return async () => {
@@ -68,8 +78,8 @@ const BookListView = () => {
 		console.log(value);
 		try {
 			await bookApi.delete(value).then((res) => {
+				socket.emit("adminSend:", casual.uuid);
 				dispatch({ type: "DELETE_BOOk", payload: value });
-
 				NotificationManager.success("", "Xóa Thành Công", 1000);
 			});
 			return;

@@ -8,6 +8,7 @@
 		"@material-ui/lab": "^4.0.0-alpha.56",
 		"@material-ui/styles": "^4.10.0",
 		"axios": "^0.21.0",
+		"casual-browserify": "^1.5.19-2",
 		"chart.js": "^2.9.3",
 		"clsx": "^1.1.1",
 		"express": "^4.17.1",
@@ -39,11 +40,12 @@
 		"react-to-pdf": "0.0.13",
 		"redux": "^4.0.5",
 		"redux-thunk": "^2.3.0",
+		"socket.io-client": "^2.2.0",
 		"uuid": "^8.3.0",
 		"yup": "^0.29.3"
 	},
 	"scripts": {
-		"start": "node server.js",
+		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject"
