@@ -32,7 +32,7 @@ function Copyright() {
 		<Typography variant="body2" color="textSecondary" align="center">
 			{"Copyright © "}
 			<Link color="inherit" href="https://material-ui.com/">
-				Your Website
+				uteBookstore
 			</Link>{" "}
 			{new Date().getFullYear()}
 			{"."}
@@ -97,12 +97,12 @@ export default function SignIn() {
 	const handleFacebook = (res) => {
 		// facebookLoginHandle(response.userID, response.accessToken);
 		const data = { userID: res.userID, token: res.accessToken };
+
 		setProgess(true);
 		try {
 			apiUser.loginfb(data).then((res) => {
 				if (res.accessToken) {
 					localStorage.setItem("token", res.accessToken);
-
 					dispatch({
 						type: "NOTICE",
 						payload: {
@@ -119,12 +119,11 @@ export default function SignIn() {
 	const handleGoogle = async (res) => {
 		const token = res.tokenId;
 		setProgess(true);
-		console.log(token);
+		console.log("day la " + token);
 		try {
 			await userApi.logingg({ token }).then((res) => {
 				if (res.accessToken) {
 					localStorage.setItem("token", res.accessToken);
-
 					dispatch({
 						type: "NOTICE",
 						payload: {
@@ -183,7 +182,7 @@ export default function SignIn() {
 					required
 					fullWidth
 					id="email"
-					label="name"
+					label="Name"
 					name="email"
 					autoComplete="email"
 					autoFocus
@@ -217,7 +216,7 @@ export default function SignIn() {
 				<Grid container>
 					<Grid container item>
 						<Grid item xs>
-							<Link href="#" variant="body2">
+							<Link href="/forgotpassword" variant="body2">
 								Forgot password?
 							</Link>
 						</Grid>

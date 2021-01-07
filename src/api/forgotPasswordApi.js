@@ -4,5 +4,9 @@ const forgotPasswordApi = {
 		const url = "/user/resetpassword";
 		return axiosClient.post(url, data);
 	},
+	forgetPassword: (data) => {
+		const url = `/user/forgetpassword`;
+		return axiosClient.post(url, data);
+	},
 };
 export default forgotPasswordApi;

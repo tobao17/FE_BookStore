@@ -12,6 +12,7 @@ const userApi = {
 		const url = `user/login`;
 		return axiosClient.post(url, data);
 	},
+
 	logingg: (data) => {
 		const url = `user/signingg`;
 		return axiosClient.post(url, data);
