@@ -43,7 +43,22 @@ const BookListView = () => {
 					return success;
 				}
 				try {
-					const response = await bookApi.getAll({});
+					const response = await bookApi.getAll({}).catch((err) => {
+						if (err) {
+							dispatch({
+								type: "NOTICE",
+								payload: {
+									title: "Thông báo",
+									msg: " Phiên đăng nhập của bạn đã hết hạn",
+								},
+							});
+
+							localStorage.setItem("token", null);
+							localStorage.setItem("username", null);
+							history.push("/sign-in");
+						}
+						//return;
+					});
 					const booksData = response.books;
 
 					return onSuccess(booksData);

@@ -4,7 +4,7 @@ const productApi = {
 		const url = "/books";
 		return axiosClient.get(
 			url,
-			{ params },
+
 			{
 				headers: {
 					"content-type": "application/json",
