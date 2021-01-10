@@ -117,26 +117,25 @@ export default function SignIn() {
 		} catch (error) {}
 	};
 	const handleGoogle = async (res) => {
-		const token = res.tokenId;
-		setProgess(true);
-		console.log(token);
-		try {
-			await userApi.logingg({ token }).then((res) => {
-				if (res.accessToken) {
-					localStorage.setItem("token", res.accessToken);
-
-					dispatch({
-						type: "NOTICE",
-						payload: {
-							title: "Thông báo",
-							msg: "Đăng nhập thành công",
-						},
-					});
-					setProgess(false);
-					history.push("/admin/book");
-				}
-			});
-		} catch (error) {}
+		// const token = res.tokenId;
+		// setProgess(true);
+		// console.log(token);
+		// try {
+		// 	await userApi.logingg({ token }).then((res) => {
+		// 		if (res.accessToken) {
+		// 			localStorage.setItem("token", res.accessToken);
+		// 			dispatch({
+		// 				type: "NOTICE",
+		// 				payload: {
+		// 					title: "Thông báo",
+		// 					msg: "Đăng nhập thành công",
+		// 				},
+		// 			});
+		// 			setProgess(false);
+		// 			history.push("/admin/book");
+		// 		}
+		// 	});
+		// } catch (error) {}
 	};
 	async function handleLogin() {
 		console.log(name, password);
