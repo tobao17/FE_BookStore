@@ -5,7 +5,6 @@ import TableProduct from "./TableProduct";
 import bookApi from "../../../../api/bookApi";
 import { useDispatch, useSelector } from "react-redux";
 import "react-notifications/lib/notifications.css";
-
 import {
 	NotificationContainer,
 	NotificationManager,
@@ -13,23 +12,30 @@ import {
 import { useHistory, useParams } from "react-router-dom";
 import io from "socket.io-client";
 import casual from "casual-browserify";
-const ENDPOINT = process.env.ENDPOINT;
+const ENDPOINT = "http://localhost:5000";
 let socket;
 
 const BookListView = () => {
 	const listBook = useSelector((state) => state.book.books);
 	const isNotice = useSelector((state) => state.notice.msg);
+	const isNoticeNewOrder = useSelector((state) => state.notice.msgOrderNew);
 
 	//console.log("day la list book" + listBook.length);
 	const dispatch = useDispatch();
 	const history = useHistory();
 	useEffect(() => {
 		socket = io(ENDPOINT); //realtime delete
+		socket.on("server send order", (data) => {
+			NotificationManager.success(
+				`bạn nhận được một đơn hàng từ ${data}`,
+				"Thông báo",
+				1000
+			);
+		});
 	}, [ENDPOINT]);
 
 	useEffect(() => {
 		//	lưu data
-
 		let tokenlg = localStorage.getItem("token");
 		if (tokenlg === null) {
 			history.push("/sign-in");
@@ -84,6 +90,7 @@ const BookListView = () => {
 		}
 		console.log("đây là useeffect ");
 		// eslint-disable-next-line
+
 		return () => {};
 	}, []);
 
@@ -95,7 +102,6 @@ const BookListView = () => {
 			await bookApi
 				.delete(value)
 				.then((res) => {
-					socket.emit("adminSend:", casual.uuid);
 					dispatch({ type: "DELETE_BOOk", payload: value });
 					NotificationManager.success("", "Xóa Thành Công", 1000);
 				})

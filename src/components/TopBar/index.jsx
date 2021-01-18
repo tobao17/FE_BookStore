@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import clsx from "clsx";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 import {
 	AppBar,
 	Badge,
@@ -14,11 +15,12 @@ import {
 	Fade,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
-import NotificationsIcon from "@material-ui/icons/NotificationsOutlined";
+import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 import InputIcon from "@material-ui/icons/Input";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
 	root: {},
@@ -32,6 +34,8 @@ const useStyles = makeStyles(() => ({
 }));
 
 const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
+	const listAnnounce = useSelector((state) => state.notice.msgOrderNew);
+	//console.log(listAnnounce);
 	const history = useHistory();
 	const classes = useStyles();
 	const [anchorEl, setAnchorEl] = React.useState(null);
@@ -56,10 +60,10 @@ const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
 					<IconButton color="inherit" onClick={handleClick("bottom")}>
 						<Badge
 							//	badgeContent={notifications.length}
-							color="primary"
-							variant="dot"
+							badgeContent={listAnnounce.length}
+							color="secondary"
 						>
-							<NotificationsIcon />
+							<NotificationsNoneIcon></NotificationsNoneIcon>
 						</Badge>
 
 						<Popper
@@ -67,31 +71,37 @@ const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
 							anchorEl={anchorEl}
 							placement={placement}
 							transition
+							listAnnounce={listAnnounce}
 							className={classes.positionTableNotice}
 						>
-							{({ TransitionProps }) => (
-								<Fade {...TransitionProps} timeout={350}>
-									<Paper>
-										<MenuList role="menu">
-											<MenuItem className={classes.dropdownItem}>
-												Mike John responded to your email
-											</MenuItem>
-											<MenuItem className={classes.dropdownItem}>
-												You have 5 new tasks
-											</MenuItem>
-											<MenuItem className={classes.dropdownItem}>
-												You{"'"}re now friend with Andrew
-											</MenuItem>
-											<MenuItem className={classes.dropdownItem}>
-												Another Notification
-											</MenuItem>
-											<MenuItem className={classes.dropdownItem}>
-												Another One
-											</MenuItem>
-										</MenuList>
-									</Paper>
-								</Fade>
-							)}
+							{({ TransitionProps }) => {
+								// const redirectDetailOrder = (value) => {
+								// 	// console.log(value);
+								// 	//	console.log(`bao ruoi pro fesional`);
+
+								// 	history.replace(`order/edit/${value}`);
+								// };
+								return (
+									<Fade {...TransitionProps} timeout={350}>
+										<Paper>
+											<MenuList role="menu">
+												{listAnnounce.map((item) => (
+													<MenuItem
+														className={classes.dropdownItem}
+													>
+														<Link
+															to={`/admin/order/edit/${item}`}
+														>
+															bạn nhận được một đơn hàng từ{" "}
+															{item}
+														</Link>
+													</MenuItem>
+												))}
+											</MenuList>
+										</Paper>
+									</Fade>
+								);
+							}}
 						</Popper>
 					</IconButton>
 					<IconButton color="inherit" onClick={handleLogout}>

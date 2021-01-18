@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-//import io from "socket.io-client";
+import io from "socket.io-client";
 import AddFrom from "./AddFrom";
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -8,9 +8,9 @@ import { useHistory, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 
-// import casual from "casual-browserify";
-// const ENDPOINT = process.env.ENDPOINT;
-// let socket;
+import casual from "casual-browserify";
+const ENDPOINT = "http://192.168.1.5:5000";
+let socket;
 
 AddBook.propTypes = {};
 
@@ -37,14 +37,15 @@ function AddBook(props) {
 		price: "",
 		categoryId: "",
 	});
-	// useEffect(() => {
-	// 	console.log(process.env.ENDPOINT);
-	// 	console.log(process.env);
-	// 	//socket = io(ENDPOINT);
-	// 	// socket.on("ccc", (data) => {
-	// 	// 	console.log(data);
-	// 	// });
-	// }, []);
+	useEffect(() => {
+		console.log(process.env.ENDPOINT);
+		console.log(process.env);
+		socket = io(ENDPOINT);
+		// socket.on("ccc", (data) => {
+		// 	console.log(data);
+
+		// });
+	}, []);
 
 	useEffect(() => {
 		// socket.on("server send", (data) => {
@@ -73,7 +74,7 @@ function AddBook(props) {
 	function handleSubmit(value) {
 		return async (value) => {
 			try {
-				//	console.log(value);
+				console.log(value);
 				const data = new FormData(); // tao form multiple
 				data.append("images", value.images);
 				data.append("title", value.title);
@@ -93,7 +94,7 @@ function AddBook(props) {
 							console.log(res);
 
 							if (res.data) {
-								//	socket.emit("adminSend:", casual.uuid);
+								socket.emit("adminSend:", casual.uuid);
 								dispatch({ type: "ADD_BOOk", payload: res.data });
 								dispatch({
 									type: "NOTICE",
@@ -132,7 +133,7 @@ function AddBook(props) {
 						.then((res) => {
 							//lay duoc du lieu roi .then moi dispatch
 							if (res.data) {
-								//	socket.emit("adminSend:", casual.uuid);
+								socket.emit("adminSend:", casual.uuid);
 								dispatch({ type: "EDIT_BOOK", payload: res.data });
 								dispatch({
 									type: "NOTICE",

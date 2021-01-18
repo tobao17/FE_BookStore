@@ -7,6 +7,8 @@ import { ConfirmProvider } from "material-ui-confirm";
 import { Redirect, BrowserRouter, Route, Switch } from "react-router-dom";
 import ForgotPass from "./features/Shop/ForgetPass";
 
+import orderApi from "./api/orderApi";
+
 function App() {
 	return (
 		<>
@@ -27,5 +29,4 @@ function App() {
 		</>
 	);
 }
-
 export default App;
