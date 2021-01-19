@@ -85,7 +85,7 @@ export default function Checkout() {
 				else item.isSelect = false;
 				return item;
 			});
-			console.log(option);
+			//	console.log(option);
 		}
 		if (status === 1) {
 			option = SELECTTYPEORDER.map((item) => {
@@ -96,7 +96,7 @@ export default function Checkout() {
 				} else item.isSelect = false;
 				return item;
 			});
-			console.log(option);
+			//	console.log(option);
 		}
 		if (status === 2) {
 			option = SELECTTYPEORDER.map((item) => {
@@ -113,14 +113,14 @@ export default function Checkout() {
 				} else item.isSelect = false;
 				return item;
 			});
-			console.log(option);
+			//	console.log(option);
 		}
 
 		setselectOption(option);
 
 		// console.log(option)
 
-		console.log(selectOption);
+		//console.log(selectOption);
 	}, [status]);
 
 	useEffect(() => {
@@ -130,6 +130,13 @@ export default function Checkout() {
 					//	console.log(res);
 					if (res.data) {
 						setStatus(res.data.status);
+
+						let product = res.data.products;
+						let totalprice = 0;
+						for (let index = 0; index < product.length; index++) {
+							totalprice = product[index].totalPrice + totalprice;
+						}
+
 						setDetailOrder({
 							...detailOrder,
 							_id: res.data._id,
@@ -140,7 +147,7 @@ export default function Checkout() {
 							note: res.data.note,
 							email: res.data.user.email,
 							status: res.data.status,
-							totalPrice: res.data.totalrice,
+							totalPrice: totalprice,
 							phone: res.data.phone,
 						});
 					}

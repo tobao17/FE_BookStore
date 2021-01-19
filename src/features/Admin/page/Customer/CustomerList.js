@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const Results = ({ className, customers, ...rest }) => {
+const Results = ({ className, customers, onRemoveClick, ...rest }) => {
 	const classes = useStyles();
 	const confirm = useConfirm();
 	const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
@@ -89,8 +89,9 @@ const Results = ({ className, customers, ...rest }) => {
 			description: "Bạn có muốn ban tài khoản này?",
 		})
 			.then(() => {
-				// onRemoveClick(value);
+				onRemoveClick(value);
 			})
+
 			.catch(() => {});
 		return;
 	};

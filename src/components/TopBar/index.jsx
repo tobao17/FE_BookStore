@@ -58,11 +58,7 @@ const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
 				<Box flexGrow={1} />
 				<Hidden mdDown>
 					<IconButton color="inherit" onClick={handleClick("bottom")}>
-						<Badge
-							//	badgeContent={notifications.length}
-							badgeContent={listAnnounce.length}
-							color="secondary"
-						>
+						<Badge badgeContent={listAnnounce.length} color="secondary">
 							<NotificationsNoneIcon></NotificationsNoneIcon>
 						</Badge>
 

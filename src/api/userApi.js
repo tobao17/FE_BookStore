@@ -5,8 +5,12 @@ const userApi = {
 		return axiosClient.get(url, { params });
 	},
 	search: (data) => {
-		const url = `/order/search`;
+		const url = `/user/search`;
 		return axiosClient.post(url, data);
+	},
+	delete: (id) => {
+		const url = `/user/delete/${id}`;
+		return axiosClient.get(url);
 	},
 	login: (data) => {
 		const url = `user/login`;

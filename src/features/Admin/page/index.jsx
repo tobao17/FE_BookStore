@@ -14,6 +14,8 @@ import orderApi from "../../../api/orderApi";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import io from "socket.io-client";
+const ENDPOINT = "http://localhost:5000";
+let socket;
 const useStyles = makeStyles((theme) => ({
 	root: {
 		backgroundColor: theme.palette.background.dark,
@@ -51,10 +53,10 @@ const DashboardLayout = () => {
 	console.log({ match });
 
 	useEffect(() => {
-		// socket = io(ENDPOINT);
-		// socket.on("server send order", (data) => {
-		// 	dispatch({ type: "NOTICEORDER_NEW", payload: data });
-		// });
+		socket = io(ENDPOINT);
+		socket.on("server send order", (data) => {
+			dispatch({ type: "NOTICEORDER_NEW", payload: data });
+		});
 	}, []);
 	useEffect(() => {
 		//	lưu data

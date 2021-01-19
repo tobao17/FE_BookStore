@@ -32,7 +32,7 @@ const BookListView = () => {
 				1000
 			);
 		});
-	}, [ENDPOINT]);
+	}, []);
 
 	useEffect(() => {
 		//	lưu data

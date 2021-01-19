@@ -5,6 +5,10 @@ import Results from "./CustomerList";
 import Toolbar from "../../../../components/ToolBar";
 import data from "./data";
 import userApi from "../../../../api/userApi";
+import {
+	NotificationContainer,
+	NotificationManager,
+} from "react-notifications";
 const useStyles = makeStyles((theme) => ({
 	root: {
 		backgroundColor: theme.palette.background.dark,
@@ -40,12 +44,42 @@ const CustomerListView = () => {
 		getData()();
 		return () => {};
 	}, []);
+	const deleteData = async (value) => {
+		console.log(value);
+		try {
+			await userApi
+				.delete(value)
+				.then((res) => {
+					dispatch({ type: "DELETE_USER", payload: value });
+					NotificationManager.success("", "Xóa Thành Công", 1000);
+				})
+				.catch((err) => {
+					if (err) {
+						dispatch({
+							type: "NOTICE",
+							payload: {
+								title: "Thông báo",
+								msg: " Phiên đăng nhập của bạn đã hết hạn",
+							},
+						});
+					}
+					//return;
+				});
+			return;
+		} catch (error) {
+			console.log(error);
+		}
+	};
+	function handleDelete(value) {
+		deleteData(value);
+	}
 
 	return (
 		<Container maxWidth={false}>
+			<NotificationContainer />
 			<Toolbar isOrder={true} />
 			<Box mt={3}>
-				<Results customers={listUser} />
+				<Results customers={listUser} onRemoveClick={handleDelete} />
 			</Box>
 		</Container>
 	);

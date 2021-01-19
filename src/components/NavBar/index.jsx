@@ -37,11 +37,6 @@ const items = [
 		icon: Book,
 		title: "Quản lý Sách",
 	},
-	{
-		href: "/admin/category",
-		icon: Category,
-		title: "Quản lý Loại Sách",
-	},
 
 	{
 		href: "/admin/user",
