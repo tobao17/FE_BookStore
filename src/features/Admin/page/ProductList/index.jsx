@@ -13,7 +13,7 @@ import {
 import { useHistory, useParams } from "react-router-dom";
 import io from "socket.io-client";
 import casual from "casual-browserify";
-const ENDPOINT = "http://localhost:5000";
+const ENDPOINT = "https://apirealtimeute.herokuapp.com";
 let socket;
 
 const BookListView = () => {
