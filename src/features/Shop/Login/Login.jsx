@@ -22,6 +22,7 @@ import { GoogleLogin } from "react-google-login";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import EmailIcon from "@material-ui/icons/Email";
 import { IconButton } from "@material-ui/core";
+
 import {
 	NotificationContainer,
 	NotificationManager,
@@ -32,7 +33,7 @@ function Copyright() {
 		<Typography variant="body2" color="textSecondary" align="center">
 			{"Copyright © "}
 			<Link color="inherit" href="https://material-ui.com/">
-				Your Website
+				uteBookstore
 			</Link>{" "}
 			{new Date().getFullYear()}
 			{"."}
@@ -97,12 +98,19 @@ export default function SignIn() {
 	const handleFacebook = (res) => {
 		// facebookLoginHandle(response.userID, response.accessToken);
 		const data = { userID: res.userID, token: res.accessToken };
+
 		setProgess(true);
 		try {
 			apiUser.loginfb(data).then((res) => {
 				if (res.accessToken) {
-					localStorage.setItem("token", res.accessToken);
+					console.log(res);
 
+					// dispatch({
+					// 	type: "SETNAME",
+					// 	payload: res.username,
+					// });
+					localStorage.setItem("name", res.username);
+					localStorage.setItem("token", res.accessToken);
 					dispatch({
 						type: "NOTICE",
 						payload: {
@@ -117,6 +125,7 @@ export default function SignIn() {
 		} catch (error) {}
 	};
 	const handleGoogle = async (res) => {
+		//<<<<<<< HEAD
 		// const token = res.tokenId;
 		// setProgess(true);
 		// console.log(token);
@@ -136,6 +145,29 @@ export default function SignIn() {
 		// 		}
 		// 	});
 		// } catch (error) {}
+		// =======
+		// 		const token = res.tokenId;
+		// 		setProgess(true);
+		// 		console.log("day la " + token);
+		// 		try {
+		// 			await userApi.logingg({ token }).then((res) => {
+		// 				if (res.accessToken) {
+		// 					console.log(res);
+		// 					localStorage.setItem("name", res.username);
+		// 					localStorage.setItem("token", res.accessToken);
+		// 					dispatch({
+		// 						type: "NOTICE",
+		// 						payload: {
+		// 							title: "Thông báo",
+		// 							msg: "Đăng nhập thành công",
+		// 						},
+		// 					});
+		// 					setProgess(false);
+		// 					history.push("/admin/book");
+		// 				}
+		// 			});
+		// 		} catch (error) {}
+		// >>>>>>> login_gg_fB_CURĐ
 	};
 	async function handleLogin() {
 		console.log(name, password);
@@ -147,6 +179,8 @@ export default function SignIn() {
 		await apiUser.login(data).then((res) => {
 			console.log(res);
 			if (res.accessToken) {
+				console.log(res);
+				localStorage.setItem("name", res.username);
 				localStorage.setItem("token", res.accessToken);
 
 				dispatch({
@@ -182,7 +216,7 @@ export default function SignIn() {
 					required
 					fullWidth
 					id="email"
-					label="name"
+					label="Name"
 					name="email"
 					autoComplete="email"
 					autoFocus
@@ -216,11 +250,11 @@ export default function SignIn() {
 				<Grid container>
 					<Grid container item>
 						<Grid item xs>
-							<Link href="#" variant="body2">
+							<Link href="/forgotpassword" variant="body2">
 								Forgot password?
 							</Link>
 						</Grid>
-						<GoogleLogin
+						{/* <GoogleLogin
 							clientId="600298462719-rip8u175f9il4si9j1r596035csuh5mb.apps.googleusercontent.com"
 							onSuccess={handleGoogle}
 							onFailure={handleGoogle}
@@ -265,7 +299,7 @@ export default function SignIn() {
 									<FacebookIcon></FacebookIcon>
 								</IconButton>
 							)}
-						/>
+						/> */}
 					</Grid>
 				</Grid>
 			</div>

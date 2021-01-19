@@ -10,16 +10,32 @@ import {
 	NotificationManager,
 } from "react-notifications";
 import { useHistory, useParams } from "react-router-dom";
+import io from "socket.io-client";
+import casual from "casual-browserify";
+const ENDPOINT = "http://localhost:5000";
+let socket;
+
 const BookListView = () => {
 	const listBook = useSelector((state) => state.book.books);
 	const isNotice = useSelector((state) => state.notice.msg);
+	const isNoticeNewOrder = useSelector((state) => state.notice.msgOrderNew);
 
 	//console.log("day la list book" + listBook.length);
 	const dispatch = useDispatch();
 	const history = useHistory();
 	useEffect(() => {
-		//	lưu data
+		socket = io(ENDPOINT); //realtime delete
+		socket.on("server send order", (data) => {
+			NotificationManager.success(
+				`bạn nhận được một đơn hàng từ ${data.username}`,
+				"Thông báo",
+				1000
+			);
+		});
+	}, []);
 
+	useEffect(() => {
+		//	lưu data
 		let tokenlg = localStorage.getItem("token");
 		if (tokenlg === null) {
 			history.push("/sign-in");
@@ -33,7 +49,22 @@ const BookListView = () => {
 					return success;
 				}
 				try {
-					const response = await bookApi.getAll({});
+					const response = await bookApi.getAll({}).catch((err) => {
+						if (err) {
+							dispatch({
+								type: "NOTICE",
+								payload: {
+									title: "Thông báo",
+									msg: " Phiên đăng nhập của bạn đã hết hạn",
+								},
+							});
+
+							localStorage.setItem("token", null);
+							localStorage.setItem("username", null);
+							history.push("/sign-in");
+						}
+						//return;
+					});
 					const booksData = response.books;
 
 					return onSuccess(booksData);
@@ -59,6 +90,7 @@ const BookListView = () => {
 		}
 		console.log("đây là useeffect ");
 		// eslint-disable-next-line
+
 		return () => {};
 	}, []);
 
@@ -67,11 +99,28 @@ const BookListView = () => {
 	const deleteData = async (value) => {
 		console.log(value);
 		try {
-			await bookApi.delete(value).then((res) => {
-				dispatch({ type: "DELETE_BOOk", payload: value });
+			await bookApi
+				.delete(value)
+				.then((res) => {
+					dispatch({ type: "DELETE_BOOk", payload: value });
+					NotificationManager.success("", "Xóa Thành Công", 1000);
+				})
+				.catch((err) => {
+					if (err) {
+						dispatch({
+							type: "NOTICE",
+							payload: {
+								title: "Thông báo",
+								msg: " Phiên đăng nhập của bạn đã hết hạn",
+							},
+						});
 
-				NotificationManager.success("", "Xóa Thành Công", 1000);
-			});
+						localStorage.setItem("token", null);
+						localStorage.setItem("username", null);
+						history.push("/sign-in");
+					}
+					//return;
+				});
 			return;
 		} catch (error) {
 			console.log(error);

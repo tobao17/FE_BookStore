@@ -53,7 +53,6 @@ const useStyles = makeStyles((theme) => ({
 export default function ResetPassword() {
 	const [value, setValue] = useState("");
 	const [progess, setProgess] = useState(false);
-	const { token } = useParams();
 	const handleonchange = (e) => {
 		setValue(e.target.value);
 		//console.log(value);
@@ -62,43 +61,24 @@ export default function ResetPassword() {
 	const classes = useStyles();
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-
 		const data = {
-			token: token,
-			newPassword: value,
+			email: value,
 		};
-		console.log(data);
 		try {
 			setProgess(true);
-			await ForgotPassword.reset(data)
-				.then((res) => {
-					setProgess(false);
 
-					if (res.msg) {
-						console.log(res);
-						setValue("");
-						setProgess(false);
-						NotificationManager.success(
-							"",
-							"Thay đổi mật khẩu thành công!",
-							1000
-						);
-					}
-				})
-				.catch((err) => {
-					console.log("loi o day");
-					console.log(err);
+			await ForgotPassword.forgetPassword(data).then((res) => {
+				console.log(res.msd);
+				if (res.Type === "success") {
+					setValue("");
 					setProgess(false);
-					NotificationManager.warning(
-						"",
-						"Thay đổi mật khẩu thất bại",
-						1000
-					);
-				});
-		} catch (error) {
-			setProgess(false);
-			NotificationManager.warning("", "Thay đổi mật khẩu thất bại", 1000);
-		}
+					NotificationManager.success("", res.msd, 1000);
+				} else {
+					setProgess(false);
+					NotificationManager.warning("", res.msd, 1000);
+				}
+			});
+		} catch (error) {}
 	};
 
 	return (
@@ -110,7 +90,7 @@ export default function ResetPassword() {
 					<LockOutlinedIcon />
 				</Avatar>
 				<Typography component="h1" variant="h5">
-					Đổi Mật Khẩu
+					Quên Mật Khẩu
 				</Typography>
 				<form className={classes.form} noValidate onSubmit={handleSubmit}>
 					<TextField
@@ -119,11 +99,10 @@ export default function ResetPassword() {
 						required
 						value={value}
 						fullWidth
-						name="password"
 						onChange={handleonchange}
-						label="Mật khẩu mới"
-						type="password"
-						id="password"
+						name="email"
+						label="Email của bạn"
+						type="email"
 						autoComplete="current-password"
 					/>
 					{/* <TextField

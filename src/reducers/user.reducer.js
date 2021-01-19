@@ -1,5 +1,6 @@
 const initialState = {
 	listUser: [],
+	nameLogin: "",
 };
 
 const UserReducer = (state = initialState, action) => {
@@ -15,6 +16,32 @@ const UserReducer = (state = initialState, action) => {
 			return {
 				...state,
 				listUser: list,
+			};
+		}
+		case "DELETE_USER": {
+			const list = [...state.listUser];
+			//console.log(list);
+			console.log(action.payload);
+			const index = list
+				.map((item) => {
+					return item._id;
+				})
+				.indexOf(action.payload);
+			//	if (item.id === action.payload) return index;
+			console.log(index);
+			list.splice(index, 1);
+
+			return {
+				...state,
+				listUser: list,
+			};
+		}
+
+		case "SETNAME": {
+			const name = action.payload;
+			return {
+				...state,
+				nameLogin: name,
 			};
 		}
 		default:

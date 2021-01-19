@@ -8,6 +8,10 @@ const OrderApi = {
 		const url = `/order/detail/${id}`;
 		return axiosClient.get(url);
 	},
+	announce: () => {
+		const url = `/order/announce`;
+		return axiosClient.get(url);
+	},
 	update: (data) => {
 		const url = `/order/update`;
 		return axiosClient.post(url, data);

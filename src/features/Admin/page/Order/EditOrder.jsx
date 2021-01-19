@@ -85,7 +85,7 @@ export default function Checkout() {
 				else item.isSelect = false;
 				return item;
 			});
-			console.log(option);
+			//	console.log(option);
 		}
 		if (status === 1) {
 			option = SELECTTYPEORDER.map((item) => {
@@ -96,7 +96,7 @@ export default function Checkout() {
 				} else item.isSelect = false;
 				return item;
 			});
-			console.log(option);
+			//	console.log(option);
 		}
 		if (status === 2) {
 			option = SELECTTYPEORDER.map((item) => {
@@ -113,14 +113,14 @@ export default function Checkout() {
 				} else item.isSelect = false;
 				return item;
 			});
-			console.log(option);
+			//	console.log(option);
 		}
 
 		setselectOption(option);
 
 		// console.log(option)
 
-		console.log(selectOption);
+		//console.log(selectOption);
 	}, [status]);
 
 	useEffect(() => {
@@ -128,8 +128,16 @@ export default function Checkout() {
 			async function fetchData() {
 				await OrderApi.getOne(orderId).then((res) => {
 					//	console.log(res);
+
 					if (res.data) {
 						setStatus(res.data.status);
+
+						let product = res.data.products;
+						let totalprice = 0;
+						for (let index = 0; index < product.length; index++) {
+							totalprice = product[index].totalPrice + totalprice;
+						}
+
 						setDetailOrder({
 							...detailOrder,
 							_id: res.data._id,
@@ -140,7 +148,7 @@ export default function Checkout() {
 							note: res.data.note,
 							email: res.data.user.email,
 							status: res.data.status,
-							totalPrice: res.data.totalrice,
+							totalPrice: totalprice,
 							phone: res.data.phone,
 						});
 					}
@@ -174,6 +182,8 @@ export default function Checkout() {
 			preStatus: status,
 		};
 		setProgess(true);
+		dispatch({ type: "DELETE_NOTICEORDER_NEW", payload: detailOrder._id });
+
 		await OrderApi.update(data).then((res) => {
 			dispatch({ type: "UPDATE_ORDERS", payload: res.data });
 

@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 import {
@@ -26,22 +27,15 @@ import {
 // } from "react-feather";
 import NavItem from "./NavItem";
 
-const user = {
-	avatar: "/static/images/avatars/avatar_6.png",
-	jobTitle: "seller",
-	name: "admin",
-};
+// let user = {
+
+// };
 
 const items = [
 	{
 		href: "/admin/book",
 		icon: Book,
 		title: "Quản lý Sách",
-	},
-	{
-		href: "/admin/category",
-		icon: Category,
-		title: "Quản lý Loại Sách",
 	},
 
 	{
@@ -85,12 +79,25 @@ const useStyles = makeStyles(() => ({
 
 const NavBar = ({ onMobileClose, openMobile }) => {
 	const classes = useStyles();
+	const UserName = useSelector((state) => state.user.nameLogin);
+	const [user, setuser] = useState({
+		avatar: "/static/images/avatars/avatar_6.png",
+		jobTitle: "seller",
+		name: "admin",
+	});
+
 	const location = useLocation();
 
 	useEffect(() => {
+		//console.log("day la user name" + UserName);
 		if (openMobile && onMobileClose) {
 			onMobileClose();
 		}
+		//	user.name = localStorage.getItem("name");
+		setuser({
+			...user,
+			name: localStorage.getItem("name"),
+		});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [location.pathname]);
 

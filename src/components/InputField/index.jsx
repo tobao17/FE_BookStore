@@ -20,6 +20,7 @@ InputField.defaultProps = {
 
 function InputField(props) {
 	const { field, form, type, label, placeholder, disabled, xs, xm } = props;
+	console.log(props);
 	const { name } = field;
 
 	const { errors, touched } = form;
@@ -38,6 +39,12 @@ function InputField(props) {
 				disabled={disabled}
 				placeholder={placeholder}
 				invalid={showError}
+				InputProps={{
+					inputProps: {
+						max: 1000,
+						min: 1,
+					},
+				}}
 			/>
 		</Grid>
 	);

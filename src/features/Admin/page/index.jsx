@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core";
 import NavBar from "../../../components/NavBar";
 import TopBar from "../../../components/TopBar";
@@ -10,7 +10,12 @@ import CustomerList from "./Customer/index";
 import Bill from "./Bill";
 import BillDetail from "./BillDetail";
 import NotFound from "../../../components/NotFound";
+import orderApi from "../../../api/orderApi";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import io from "socket.io-client";
+const ENDPOINT = "http://localhost:5000";
+let socket;
 const useStyles = makeStyles((theme) => ({
 	root: {
 		backgroundColor: theme.palette.background.dark,
@@ -44,7 +49,39 @@ const DashboardLayout = () => {
 	const classes = useStyles();
 	const [isMobileNavOpen, setMobileNavOpen] = useState(false);
 	const match = useRouteMatch();
+	const dispatch = useDispatch();
 	console.log({ match });
+
+	useEffect(() => {
+		socket = io(ENDPOINT);
+		socket.on("server send order", (data) => {
+			dispatch({ type: "NOTICEORDER_NEW", payload: data });
+		});
+	}, []);
+	useEffect(() => {
+		//	lưu data
+
+		function getData() {
+			return async () => {
+				try {
+					await orderApi.announce().then((res) => {
+						console.log(res.data);
+						//		console.log(res);
+						if (res.data) {
+							dispatch({ type: "NOTICEORDER", payload: res.data });
+						}
+					});
+
+					return;
+				} catch (error) {
+					console.log(error);
+					return;
+				}
+			};
+		}
+
+		getData()();
+	}, []);
 	return (
 		<div className={classes.root}>
 			<TopBar onMobileNavOpen={() => setMobileNavOpen(true)} />
