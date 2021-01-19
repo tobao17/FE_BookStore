@@ -16,7 +16,7 @@ function App() {
 				<Suspense fallback={<div>Loading ...</div>}>
 					<BrowserRouter>
 						<Switch>
-							<Redirect exact from="/" to="/sign-in" />
+							<Redirect exact from="/" to="/admin/book" />
 							<Route path="/admin" component={Admin} />
 							<Route path="/forgotpass/:token" component={ResetPass} />
 							<Route path="/sign-in" component={Login} />

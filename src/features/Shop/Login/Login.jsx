@@ -101,6 +101,7 @@ export default function SignIn() {
 
 		setProgess(true);
 		try {
+<<<<<<< HEAD
 			apiUser.loginfb(data).then((res) => {
 				if (res.accessToken) {
 					console.log(res);
@@ -122,6 +123,22 @@ export default function SignIn() {
 					history.push("/admin/book");
 				}
 			});
+=======
+			// apiUser.loginfb(data).then((res) => {
+			// 	if (res.accessToken) {
+			// 		localStorage.setItem("token", res.accessToken);
+			// 		dispatch({
+			// 			type: "NOTICE",
+			// 			payload: {
+			// 				title: "Thông báo",
+			// 				msg: "Đăng nhập thành công",
+			// 			},
+			// 		});
+			// 		setProgess(false);
+			//		history.push("/admin/book");
+			// 	}
+			// });
+>>>>>>> 0ebd5e0c1d44846546b007e9153f5d20a7cc8682
 		} catch (error) {}
 	};
 	const handleGoogle = async (res) => {
@@ -277,7 +294,7 @@ export default function SignIn() {
 									<EmailIcon></EmailIcon>
 								</IconButton>
 							)}
-						/>
+						/> */}
 
 						<FacebookLogin
 							appId="750523348882984"

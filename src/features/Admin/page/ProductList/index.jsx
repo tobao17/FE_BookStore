@@ -5,6 +5,7 @@ import TableProduct from "./TableProduct";
 import bookApi from "../../../../api/bookApi";
 import { useDispatch, useSelector } from "react-redux";
 import "react-notifications/lib/notifications.css";
+
 import {
 	NotificationContainer,
 	NotificationManager,
@@ -37,10 +38,10 @@ const BookListView = () => {
 	useEffect(() => {
 		//	lưu data
 		let tokenlg = localStorage.getItem("token");
-		if (tokenlg === null) {
-			history.push("/sign-in");
-			return;
-		}
+		// if (tokenlg === null) {
+		// 	history.push("/sign-in");
+		// 	return;
+		// }
 
 		function getData() {
 			return async () => {
