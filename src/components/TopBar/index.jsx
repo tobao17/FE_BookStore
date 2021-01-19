@@ -86,10 +86,10 @@ const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
 														className={classes.dropdownItem}
 													>
 														<Link
-															to={`/admin/order/edit/${item}`}
+															to={`/admin/order/edit/${item.id}`}
 														>
 															bạn nhận được một đơn hàng từ{" "}
-															{item}
+															{item.username}
 														</Link>
 													</MenuItem>
 												))}

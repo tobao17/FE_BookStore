@@ -128,6 +128,7 @@ export default function Checkout() {
 			async function fetchData() {
 				await OrderApi.getOne(orderId).then((res) => {
 					//	console.log(res);
+
 					if (res.data) {
 						setStatus(res.data.status);
 
@@ -181,6 +182,8 @@ export default function Checkout() {
 			preStatus: status,
 		};
 		setProgess(true);
+		dispatch({ type: "DELETE_NOTICEORDER_NEW", payload: detailOrder._id });
+
 		await OrderApi.update(data).then((res) => {
 			dispatch({ type: "UPDATE_ORDERS", payload: res.data });
 

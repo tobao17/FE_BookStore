@@ -26,6 +26,24 @@ const noticeReducer = (state = initialState, action) => {
 
 			return { ...state, msgOrderNew: ListOrderNew };
 		}
+		case "DELETE_NOTICEORDER_NEW": {
+			const list = [...state.msgOrderNew];
+			//console.log(list);
+			console.log(action.payload);
+			const index = list
+				.map((item) => {
+					return item.id;
+				})
+				.indexOf(action.payload);
+			//	if (item.id === action.payload) return index;
+			console.log(index);
+			list.splice(index, 1);
+
+			return {
+				...state,
+				msgOrderNew: list,
+			};
+		}
 		default:
 			return { ...state };
 	}

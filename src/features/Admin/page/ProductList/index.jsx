@@ -27,7 +27,7 @@ const BookListView = () => {
 		socket = io(ENDPOINT); //realtime delete
 		socket.on("server send order", (data) => {
 			NotificationManager.success(
-				`bạn nhận được một đơn hàng từ ${data}`,
+				`bạn nhận được một đơn hàng từ ${data.username}`,
 				"Thông báo",
 				1000
 			);
