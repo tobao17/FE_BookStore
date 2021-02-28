@@ -23,3 +23,4 @@
 [0119/132008.120:ERROR:process_info.cc(556)] ReadMemoryInfo failed
 [0119/132008.120:ERROR:process_memory_win.cc(39)] Failed to initialize ProcessInfo.
 [0119/132008.120:ERROR:scoped_process_suspend.cc(40)] NtResumeProcess: An attempt was made to access an exiting process. (0xc000010a)
+[0119/180811.454:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
