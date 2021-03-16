@@ -1,0 +1,33 @@
+.site-branding-text {
+	margin-left: 1em;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+.site-branding-text {
+	line-height: 1.25;
+}
+.site-title {
+	display: inline-block;
+	margin-bottom: 0;
+	font-size: 1.25em;
+	font-weight: 800;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	white-space: nowrap;
+	color: var(--color_header_link);
+	vertical-align: top;
+	/* padding: 0; */
+}
+.site-description {
+	font-size: 0.8em;
+	text-transform: uppercase;
+	margin-top: 0;
+	color: #2e2e2f;
+}
+.logo {
+	display: flex;
+}
+.site-branding-text p:last-of-type {
+	margin-bottom: 0 px !important;
+}
