@@ -1,137 +1,51 @@
 import React from "react";
 import PropTypes from "prop-types";
-
+import OwlCarousel from "react-owl-carousel";
+import "owl.carousel/dist/assets/owl.carousel.css";
+import "owl.carousel/dist/assets/owl.theme.default.css";
 Slide.propTypes = {};
 
 function Slide(props) {
 	return (
 		<>
 			{" "}
-			<div className="intro-section bg-lighter pt-5 pb-6">
+			<div className="intro-section bg-lighter pt-5 pb-6 ">
 				<div className="container">
 					<div className="row">
 						<div className="col-lg-8">
-							<div className="intro-slider-container slider-container-ratio slider-container-1 mb-2 mb-lg-0">
-								<div
-									className="intro-slider intro-slider-1 owl-carousel owl-simple owl-light owl-nav-inside"
-									data-toggle="owl"
-									data-owl-options='{
-                                        "nav": false, 
-                                        "responsive": {
-                                            "768": {
-                                                "nav": true
-                                            }
-                                        }
-                                    }'
-								>
+							<OwlCarousel
+								className="owl-theme intro-slider-container mb-2 mb-lg-0"
+								items={1}
+								loop
+								margin={0}
+								nav
+							>
+								<div class="item">
 									<div className="intro-slide">
 										<figure className="slide-image">
 											<picture>
-												<source
-													media="(max-width: 480px)"
-													srcSet="assets/images/slider/slide-1-480w.jpg"
-												/>
 												<img
 													src="assets/images/slider/slide-1.jpg"
 													alt="Image Desc"
 												/>
 											</picture>
 										</figure>
-										{/* End .slide-image */}
-										<div className="intro-content">
-											<h3 className="intro-subtitle">
-												Topsale Collection
-											</h3>
-											{/* End .h3 intro-subtitle */}
-											<h1 className="intro-title">
-												Living Room
-												<br />
-												Furniture
-											</h1>
-											{/* End .intro-title */}
-											<a
-												href="category.html"
-												className="btn btn-outline-white"
-											>
-												<span>SHOP NOW</span>
-												<i className="icon-long-arrow-right" />
-											</a>
-										</div>
-										{/* End .intro-content */}
 									</div>
-									{/* End .intro-slide */}
-									<div className="intro-slide">
-										<figure className="slide-image">
-											<picture>
-												<source
-													media="(max-width: 480px)"
-													srcSet="assets/images/slider/slide-2-480w.jpg"
-												/>
-												<img
-													src="assets/images/slider/slide-2.jpg"
-													alt="Image Desc"
-												/>
-											</picture>
-										</figure>
-										{/* End .slide-image */}
-										<div className="intro-content">
-											<h3 className="intro-subtitle">
-												News and Inspiration
-											</h3>
-											{/* End .h3 intro-subtitle */}
-											<h1 className="intro-title">New Arrivals</h1>
-											{/* End .intro-title */}
-											<a
-												href="category.html"
-												className="btn btn-outline-white"
-											>
-												<span>SHOP NOW</span>
-												<i className="icon-long-arrow-right" />
-											</a>
-										</div>
-										{/* End .intro-content */}
-									</div>
-									{/* End .intro-slide */}
-									<div className="intro-slide">
-										<figure className="slide-image">
-											<picture>
-												<source
-													media="(max-width: 480px)"
-													srcSet="assets/images/slider/slide-3-480w.jpg"
-												/>
-												<img
-													src="assets/images/slider/slide-3.jpg"
-													alt="Image Desc"
-												/>
-											</picture>
-										</figure>
-										{/* End .slide-image */}
-										<div className="intro-content">
-											<h3 className="intro-subtitle">
-												Outdoor Furniture
-											</h3>
-											{/* End .h3 intro-subtitle */}
-											<h1 className="intro-title">
-												Outdoor Dining <br />
-												Furniture
-											</h1>
-											{/* End .intro-title */}
-											<a
-												href="category.html"
-												className="btn btn-outline-white"
-											>
-												<span>SHOP NOW</span>
-												<i className="icon-long-arrow-right" />
-											</a>
-										</div>
-										{/* End .intro-content */}
-									</div>
-									{/* End .intro-slide */}
 								</div>
-								{/* End .intro-slider owl-carousel owl-simple */}
-								<span className="slider-loader" />
-								{/* End .slider-loader */}
-							</div>
+								<div class="item">
+									<h4>2</h4>
+								</div>
+								<div class="item">
+									<h4>3</h4>
+								</div>
+								<div class="item">
+									<h4>4</h4>
+								</div>
+								<div class="item">
+									<h4>5</h4>
+								</div>
+							</OwlCarousel>
+
 							{/* End .intro-slider-container */}
 						</div>
 						{/* End .col-lg-8 */}

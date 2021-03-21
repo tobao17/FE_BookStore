@@ -12,7 +12,7 @@ Home.propTypes = {};
 
 function Home(props) {
 	return (
-		<>
+		<div>
 			<Slide></Slide>
 			<Betseller></Betseller>
 			<Newrelease></Newrelease>
@@ -20,7 +20,7 @@ function Home(props) {
 			<Hotbooks></Hotbooks>
 			<Bloghome></Bloghome>
 			<Subcribe></Subcribe>
-		</>
+		</div>
 	);
 }
 

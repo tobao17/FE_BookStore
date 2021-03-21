@@ -120,6 +120,7 @@ function Newrelease(props) {
 					{/* End .mb-3 d-none */}
 				</div>
 				{/* End .col-lg-4 */}
+
 				<div className="col-xl-8">
 					<div className="block-wrapper">
 						<div

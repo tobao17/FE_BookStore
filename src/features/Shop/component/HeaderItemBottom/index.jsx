@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { NavLink } from "react-router-dom";
 
 HeaderItemBottom.propTypes = {};
 
@@ -80,16 +81,16 @@ function HeaderItemBottom(props) {
 						<nav className="main-nav">
 							<ul className="menu sf-arrows">
 								<li className="megamenu-container active">
-									<a href="index.html">Home</a>
+									<NavLink to="/home"> Home</NavLink>
 								</li>
 								<li>
-									<a href="category.html">Shop</a>
+									<NavLink to="/product"> Shop</NavLink>
 								</li>
 								<li>
-									<a href="product.html">Product</a>
+									<NavLink to="/about">About us</NavLink>
 								</li>
 								<li>
-									<a href="blog.html">Blog</a>
+									<NavLink to="/blog"> Blog</NavLink>
 								</li>
 							</ul>
 							{/* End .menu */}

@@ -28,6 +28,6 @@
 .logo {
 	display: flex;
 }
-.site-branding-text p:last-of-type {
-	margin-bottom: 0 px !important;
+.widget-about p:last-of-type {
+	margin-bottom: 0.2rem !important;
 }
