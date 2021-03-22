@@ -1,26 +1,75 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
+import "./index.css";
+
 Slide.propTypes = {};
 
 function Slide(props) {
+	var settings = {
+		dots: true,
+		infinite: true,
+		speed: 500,
+		slidesToShow: 1,
+		adaptiveHeight: true,
+		slidesToScroll: 1,
+		// /	autoplay: true,
+		// speed: 2000,
+		// autoplaySpeed: 2000,
+		//cssEase: "linear",
+		responsive: [
+			{
+				breakpoint: 1024,
+				settings: {
+					slidesToShow: 3,
+					slidesToScroll: 3,
+					infinite: true,
+					dots: true,
+				},
+			},
+			{
+				breakpoint: 600,
+				settings: {
+					slidesToShow: 2,
+					slidesToScroll: 2,
+					initialSlide: 2,
+				},
+			},
+			{
+				breakpoint: 480,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1,
+				},
+			},
+		],
+
+		// customPaging: (i) => (
+		// 	<div
+		// 		style={{
+		// 			width: "30px",
+		// 			color: "blue",
+		// 			border: "1px blue solid",
+		// 		}}
+		// 	>
+		// 		{i + 1}
+		// 	</div>
+		// ),
+	};
 	return (
 		<>
 			{" "}
 			<div className="intro-section bg-lighter pt-5 pb-6 ">
 				<div className="container">
 					<div className="row">
-						<div className="col-lg-8">
-							<OwlCarousel
-								className="owl-theme intro-slider-container mb-2 mb-lg-0"
-								items={1}
-								loop
-								margin={0}
-								nav
-							>
-								<div class="item">
+						<div className="col-lg-8 slider-container-1">
+							<Slider {...settings}>
+								<div>
 									<div className="intro-slide">
 										<figure className="slide-image">
 											<picture>
@@ -30,23 +79,59 @@ function Slide(props) {
 												/>
 											</picture>
 										</figure>
+										<div className="intro-content">
+											<h3 className="intro-subtitle">
+												Topsale Collection
+											</h3>
+											{/* End .h3 intro-subtitle */}
+											<h1 className="intro-title">
+												Living Room
+												<br />
+												Furniture
+											</h1>
+											{/* End .intro-title */}
+											<a
+												href="category.html"
+												className="btn btn-outline-white"
+											>
+												<span>SHOP NOW</span>
+												<i className="icon-long-arrow-right" />
+											</a>
+										</div>
 									</div>
 								</div>
-								<div class="item">
-									<h4>2</h4>
+								<div>
+									<div className="intro-slide">
+										<figure className="slide-image">
+											<picture>
+												<img
+													src="assets/images/slider/slide-1.jpg"
+													alt="Image Desc"
+												/>
+											</picture>
+										</figure>
+										<div className="intro-content">
+											<h3 className="intro-subtitle">
+												Topsale Collection
+											</h3>
+											{/* End .h3 intro-subtitle */}
+											<h1 className="intro-title">
+												Living Room
+												<br />
+												Furniture
+											</h1>
+											{/* End .intro-title */}
+											<a
+												href="category.html"
+												className="btn btn-outline-white"
+											>
+												<span>SHOP NOW</span>
+												<i className="icon-long-arrow-right" />
+											</a>
+										</div>
+									</div>
 								</div>
-								<div class="item">
-									<h4>3</h4>
-								</div>
-								<div class="item">
-									<h4>4</h4>
-								</div>
-								<div class="item">
-									<h4>5</h4>
-								</div>
-							</OwlCarousel>
-
-							{/* End .intro-slider-container */}
+							</Slider>
 						</div>
 						{/* End .col-lg-8 */}
 						<div className="col-lg-4">
