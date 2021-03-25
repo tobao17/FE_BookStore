@@ -3,9 +3,7 @@ import PropTypes from "prop-types";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import OwlCarousel from "react-owl-carousel";
-import "owl.carousel/dist/assets/owl.carousel.css";
-import "owl.carousel/dist/assets/owl.theme.default.css";
+
 import "./index.css";
 
 Slide.propTypes = {};
@@ -14,14 +12,14 @@ function Slide(props) {
 	var settings = {
 		dots: true,
 		infinite: true,
-		speed: 500,
+
 		slidesToShow: 1,
 		adaptiveHeight: true,
 		slidesToScroll: 1,
-		// /	autoplay: true,
-		// speed: 2000,
-		// autoplaySpeed: 2000,
-		//cssEase: "linear",
+		autoplay: true,
+		speed: 500,
+		autoplaySpeed: 5000,
+		cssEase: "linear",
 		responsive: [
 			{
 				breakpoint: 1024,

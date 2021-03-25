@@ -48,3 +48,13 @@
 	content: "";
 	width: 100%;
 } */
+.slick-dots {
+	z-index: 0;
+}
+.slick-list {
+	z-index: 5;
+}
+.slick-slide {
+	padding: 0 2px;
+	box-sizing: border-box;
+}

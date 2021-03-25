@@ -1,0 +1,19 @@
+.block-wrapper .slick-list {
+	overflow: visible;
+}
+.product-footer .ratings-container {
+	height: auto !important;
+}
+
+.product-footer:hover {
+	padding-left: 3rem;
+	padding-right: 3rem;
+}
+
+.product .product-body {
+	height: auto !important;
+}
+.slidercontent .slick-slide {
+	padding: 0 7px;
+	box-sizing: border-box;
+}

@@ -1,0 +1,7 @@
+.slidercontent .slick-slide {
+	padding: 0 7px;
+	box-sizing: border-box;
+}
+.slick-slide .product-body {
+	height: auto !important;
+}
