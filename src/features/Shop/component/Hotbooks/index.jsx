@@ -48,7 +48,7 @@ function Hotbooks(props) {
 	return (
 		<div className="block">
 			<div className="block-wrapper">
-				<div className="container">
+				<div className="container slidercontent">
 					<div className="heading heading-flex">
 						<div className="heading-left">
 							<h2 className="title">Picks From Our Experts</h2>

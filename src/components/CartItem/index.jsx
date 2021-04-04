@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-
+import { Link } from "react-router-dom";
 CartItem.propTypes = {};
 
 function CartItem(props) {
@@ -15,19 +15,19 @@ function CartItem(props) {
 				</a>
 			</div>
 			{/* End .compare-dropdown */}
-			<div className="wishlist">
-				<a href="wishlist.html" title="Wishlist">
+			<div className="wishlist" title="Wishlist">
+				<Link to="/wishlist">
 					<div className="icon">
 						<i className="icon-heart-o" />
 						<span className="wishlist-count badge">3</span>
 					</div>
 					<p>Wishlist</p>
-				</a>
+				</Link>
 			</div>
 			{/* End .compare-dropdown */}
 			<div className="dropdown cart-dropdown">
-				<a
-					href="#"
+				<Link
+					to="/cart"
 					className="dropdown-toggle"
 					role="button"
 					data-toggle="dropdown"
@@ -40,7 +40,8 @@ function CartItem(props) {
 						<span className="cart-count">3</span>
 					</div>
 					<p>Cart</p>
-				</a>
+				</Link>
+
 				<div className="dropdown-menu dropdown-menu-right">
 					<div className="dropdown-cart-products">
 						<div className="product">
@@ -101,9 +102,10 @@ function CartItem(props) {
 					</div>
 					{/* End .dropdown-cart-total */}
 					<div className="dropdown-cart-action">
-						<a href="cart.html" className="btn btn-primary">
+						<Link className="btn btn-primary" to="/cart">
 							View Cart
-						</a>
+						</Link>
+
 						<a href="checkout.html" className="btn btn-outline-primary-2">
 							<span>Checkout</span>
 							<i className="icon-long-arrow-right" />
