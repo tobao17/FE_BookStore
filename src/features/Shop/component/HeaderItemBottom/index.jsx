@@ -87,10 +87,10 @@ function HeaderItemBottom(props) {
 									<NavLink to="/product"> Shop</NavLink>
 								</li>
 								<li>
-									<NavLink to="/about">About us</NavLink>
+									<NavLink to="/aboutus">About us</NavLink>
 								</li>
 								<li>
-									<NavLink to="/blog"> Blog</NavLink>
+									<NavLink to="/alog"> Blog</NavLink>
 								</li>
 							</ul>
 							{/* End .menu */}

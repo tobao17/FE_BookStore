@@ -9,6 +9,8 @@ import Footer from "./component/Footer";
 import Cart from "./page/Cart";
 import Wishlist from "./page/Wishlist";
 import Checkout from "./page/Checkout";
+import Aboutus from "./page/Aboutus";
+import Blog from "./page/Blog";
 const Shop = (props) => {
 	const match = useRouteMatch();
 	console.log(match.path);
@@ -18,6 +20,7 @@ const Shop = (props) => {
 			<Switch>
 				<Redirect from="/home" to="/" exact></Redirect>
 				<Route path={match.path} component={Home} exact></Route>
+				<Route exact path={`${match.path}\alog`} component={Blog}></Route>
 				<Route
 					path={`${match.path}\product`}
 					component={Product}
@@ -32,6 +35,11 @@ const Shop = (props) => {
 				<Route
 					path={`${match.path}\checkout`}
 					component={Checkout}
+					exact
+				></Route>
+				<Route
+					path={`${match.path}\aboutus`}
+					component={Aboutus}
 					exact
 				></Route>
 
