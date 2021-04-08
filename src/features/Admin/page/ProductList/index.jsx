@@ -18,6 +18,7 @@ let socket;
 
 const BookListView = () => {
 	const listBook = useSelector((state) => state.book.books);
+	console.log("day laf list book trennn ", listBook);
 	const isNotice = useSelector((state) => state.notice.msg);
 	const isNoticeNewOrder = useSelector((state) => state.notice.msgOrderNew);
 
@@ -67,6 +68,7 @@ const BookListView = () => {
 						//return;
 					});
 					const booksData = response.books;
+					console.log(booksData);
 
 					return onSuccess(booksData);
 				} catch (error) {
@@ -89,11 +91,11 @@ const BookListView = () => {
 			});
 			// tra ve null
 		}
-		console.log("đây là useeffect ");
+
 		// eslint-disable-next-line
 
 		return () => {};
-	}, []);
+	}, [listBook.length]);
 
 	///delete
 

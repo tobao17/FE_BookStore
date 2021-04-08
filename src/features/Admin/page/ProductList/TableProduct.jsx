@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
 const Results = ({ className, listbooks, onRemoveClick, ...rest }) => {
 	const confirm = useConfirm();
 	//console.log(customers);
+	console.log("day la list book" + listbooks);
 	const classes = useStyles();
 	//const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
 	const [limit, setLimit] = useState(10);
@@ -90,54 +91,11 @@ const Results = ({ className, listbooks, onRemoveClick, ...rest }) => {
 								<TableCell>Thao Tác</TableCell>
 							</TableRow>
 						</TableHead>
-						<TableBody>
-							{listbooks.map((book, index) => (
-								<TableRow
-									hover
-									key={book._id}
-									// selected={
-									// 	selectedCustomerIds.indexOf(book._id) !== -1
-									// }
-								>
-									{/* <TableCell>{index + 1}</TableCell> */}
-									<TableCell>
-										<Box alignItems="center" display="flex">
-											<Avatar
-												className={classes.avatar}
-												src={book.images}
-											>
-												{book.images}
-											</Avatar>
-											<Typography
-												color="textPrimary"
-												variant="body1"
-											>
-												{book.title}
-											</Typography>
-										</Box>
-									</TableCell>
-									<TableCell>{book.quantity}</TableCell>
-									<TableCell>{book.category.name}</TableCell>
-
-									<TableCell>{book.author}</TableCell>
-									<TableCell>{book.price}</TableCell>
-									<TableCell>
-										<IconButton onClick={() => handleEdit(book._id)}>
-											<Edit style={{ color: "#222" }}></Edit>
-										</IconButton>
-										<IconButton
-											onClick={() => handleDelete(book._id)}
-										>
-											<Delete style={{ color: "tomato" }}></Delete>
-										</IconButton>
-									</TableCell>
-								</TableRow>
-							))}
-						</TableBody>
+						<TableBody></TableBody>
 					</Table>
 				</Box>
 			</PerfectScrollbar>
-			<TablePagination
+			{/* <TablePagination
 				component="div"
 				count={listbooks.length}
 				onChangePage={handlePageChange}
@@ -145,7 +103,7 @@ const Results = ({ className, listbooks, onRemoveClick, ...rest }) => {
 				page={page}
 				rowsPerPage={limit}
 				rowsPerPageOptions={[5, 10, 25]}
-			/>
+			/> */}
 		</Card>
 	);
 };

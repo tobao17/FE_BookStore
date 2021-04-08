@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import Shop from "./features/Shop";
-// import Admin from "./features/Admin/page/index";
+//import Shop from "./features/Shop";
+import Admin from "./features/Admin/page/index";
 // import ResetPass from "./features/Shop/ForgetPassWord/index";
 // import NotFound from "./components/NotFound/index";
 // import Login from "./features/Shop/Login";
@@ -15,10 +15,12 @@ function App() {
 	return (
 		<>
 			{/* <ConfirmProvider> */}
-			<Switch>
+			{/* <Switch>
 				<Route path="/" component={Shop}></Route>
+			</Switch> */}
+			<Switch>
+				<Route path="/admin" component={Admin}></Route>
 			</Switch>
-
 			{/* <Switch>
 							<Redirect exact from="/" to="/sign-in" />
 							<Route path="/admin" component={Admin} />
