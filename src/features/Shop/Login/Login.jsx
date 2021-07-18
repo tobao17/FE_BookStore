@@ -99,7 +99,7 @@ export default function SignIn() {
 		// facebookLoginHandle(response.userID, response.accessToken);
 		const data = { userID: res.userID, token: res.accessToken };
 
-		setProgess(false);
+		setProgess(true);
 		try {
 			apiUser.loginfb(data).then((res) => {
 				if (res.accessToken) {
@@ -126,7 +126,7 @@ export default function SignIn() {
 	};
 	const handleGoogle = async (res) => {
 		const token = res.tokenId;
-		setProgess(false);
+		setProgess(true);
 		console.log("day la " + token);
 		try {
 			await userApi.logingg({ token }).then((res) => {
@@ -232,7 +232,7 @@ export default function SignIn() {
 								Forgot password?
 							</Link>
 						</Grid>
-						<GoogleLogin
+						{/* <GoogleLogin
 							clientId="600298462719-rip8u175f9il4si9j1r596035csuh5mb.apps.googleusercontent.com"
 							onSuccess={handleGoogle}
 							onFailure={handleGoogle}
@@ -277,7 +277,7 @@ export default function SignIn() {
 									<FacebookIcon></FacebookIcon>
 								</IconButton>
 							)}
-						/>
+						/> */}
 					</Grid>
 				</Grid>
 			</div>
