@@ -109,3 +109,8 @@ bottom-bar is colored bar located at bottom of invoice-card
 	width: 100%;
 	background-color: #323149;
 }
+.makeStyles-root-27 > * {
+	margin: 24px;
+	display: flex;
+	justify-content: center;
+}
