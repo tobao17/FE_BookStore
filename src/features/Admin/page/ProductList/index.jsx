@@ -13,7 +13,6 @@ import { useHistory, useParams } from "react-router-dom";
 import io from "socket.io-client";
 import casual from "casual-browserify";
 const ENDPOINT = "http://localhost:5000";
-
 let socket;
 
 const BookListView = () => {
