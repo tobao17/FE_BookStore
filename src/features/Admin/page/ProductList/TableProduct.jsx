@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import { useConfirm } from "material-ui-confirm";
 import PerfectScrollbar from "react-perfect-scrollbar";
+import Pagenavigation from "../../../../components/Pagination";
 import {
 	Avatar,
 	Box,
@@ -29,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Results = ({ className, listbooks, onRemoveClick, ...rest }) => {
+	const [booksPagination, setBooksPagination] = useState([]);
 	const confirm = useConfirm();
 	//console.log(customers);
 	const classes = useStyles();
@@ -37,6 +39,11 @@ const Results = ({ className, listbooks, onRemoveClick, ...rest }) => {
 	const [page, setPage] = useState(0);
 
 	const history = useHistory();
+	useEffect(() => {
+		if (listbooks) {
+			handlePagination(1);
+		}
+	}, [listbooks]);
 	// const handleSelectAll = (event) => {
 	// 	let newSelectedCustomerIds;
 
@@ -73,7 +80,23 @@ const Results = ({ className, listbooks, onRemoveClick, ...rest }) => {
 		const editUrl = `/admin/book/edit/${value}`;
 		history.push(editUrl);
 	};
+	const handlePagination = (page) => {
+		const limit = 15;
+		let listbook = listbooks;
+		let endPage = Math.ceil(listbooks.length / 8);
 
+		console.log(page, endPage);
+		let from = (page - 1) * limit;
+		let toindex = page * limit;
+		if (page == endPage) {
+			let bookPagination = listbook.reverse().slice(from, listbooks.length);
+			setBooksPagination(bookPagination);
+			return bookPagination;
+		}
+		let bookPagination = listbook.reverse().slice(from, toindex);
+		setBooksPagination(bookPagination);
+		return bookPagination;
+	};
 	return (
 		<Card className={clsx(classes.root, className)} {...rest}>
 			<PerfectScrollbar>
@@ -91,7 +114,7 @@ const Results = ({ className, listbooks, onRemoveClick, ...rest }) => {
 							</TableRow>
 						</TableHead>
 						<TableBody>
-							{listbooks.map((book, index) => (
+							{booksPagination.map((book, index) => (
 								<TableRow
 									hover
 									key={book._id}
@@ -137,15 +160,10 @@ const Results = ({ className, listbooks, onRemoveClick, ...rest }) => {
 					</Table>
 				</Box>
 			</PerfectScrollbar>
-			<TablePagination
-				component="div"
-				count={listbooks.length}
-				onChangePage={handlePageChange}
-				onChangeRowsPerPage={handleLimitChange}
-				page={page}
-				rowsPerPage={limit}
-				rowsPerPageOptions={[5, 10, 25]}
-			/>
+			<Pagenavigation
+				count={Math.ceil(listbooks.length / 15)}
+				Pagination={handlePagination}
+			></Pagenavigation>
 		</Card>
 	);
 };
