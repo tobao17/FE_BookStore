@@ -99,7 +99,7 @@ export default function SignIn() {
 		// facebookLoginHandle(response.userID, response.accessToken);
 		const data = { userID: res.userID, token: res.accessToken };
 
-		setProgess(true);
+		setProgess(false);
 		try {
 			apiUser.loginfb(data).then((res) => {
 				if (res.accessToken) {
@@ -126,7 +126,7 @@ export default function SignIn() {
 	};
 	const handleGoogle = async (res) => {
 		const token = res.tokenId;
-		setProgess(true);
+		setProgess(false);
 		console.log("day la " + token);
 		try {
 			await userApi.logingg({ token }).then((res) => {
