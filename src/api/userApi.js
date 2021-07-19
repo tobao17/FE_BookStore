@@ -13,7 +13,7 @@ const userApi = {
 		return axiosClient.get(url);
 	},
 	login: (data) => {
-		const url = `user/login`;
+		const url = `user/adminlogin`;
 		return axiosClient.post(url, data);
 	},
 
