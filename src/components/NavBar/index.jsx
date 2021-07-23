@@ -8,6 +8,7 @@ import {
 	Business,
 	Book,
 	SupervisedUserCircle,
+	Dashboard,
 } from "@material-ui/icons";
 import {
 	Avatar,
@@ -33,11 +34,15 @@ import NavItem from "./NavItem";
 
 const items = [
 	{
+		href: "/admin/statistic",
+		icon: Dashboard,
+		title: "Thống kê",
+	},
+	{
 		href: "/admin/book",
 		icon: Book,
 		title: "Quản lý Sách",
 	},
-
 	{
 		href: "/admin/user",
 		icon: SupervisedUserCircle,

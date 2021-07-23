@@ -14,6 +14,7 @@ import orderApi from "../../../api/orderApi";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import io from "socket.io-client";
+import Statistic from "./statistic";
 const ENDPOINT = "https://apirealtimeute.herokuapp.com";
 let socket;
 const useStyles = makeStyles((theme) => ({
@@ -95,9 +96,15 @@ const DashboardLayout = () => {
 						<Switch>
 							<Route
 								exact
+								path={`${match.url}/statistic`}
+								component={Statistic}
+							/>
+							<Route
+								exact
 								path={`${match.url}/book`}
 								component={ProductList}
 							/>
+
 							<Route
 								path={`${match.url}/book/add`}
 								component={Addbook}
