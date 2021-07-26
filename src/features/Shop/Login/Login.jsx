@@ -119,7 +119,7 @@ export default function SignIn() {
 						},
 					});
 					setProgess(false);
-					history.push("/admin/book");
+					history.push("/admin/statistic");
 				}
 			});
 		} catch (error) {}

@@ -20,5 +20,9 @@ const OrderApi = {
 		const url = `/order/search`;
 		return axiosClient.post(url, data);
 	},
+	statistical: () => {
+		const url = `/order/statistical`;
+		return axiosClient.get(url);
+	},
 };
 export default OrderApi;
