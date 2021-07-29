@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import PropTypes from "prop-types";
+import Pagenavigation from "../../../../components/Pagination";
 
 import {
 	Box,
@@ -33,19 +34,8 @@ const useStyles = makeStyles(() => ({
 }));
 
 const LatestOrders = ({ listOrder, ...rest }) => {
+	const [orderPagination, setOrderPagination] = useState([]);
 	const history = useHistory();
-
-	const handleDelete = (value) => {
-		// confirm({
-		// 	title: "Thông Báo",
-		// 	description: "Bạn có muốn xóa sản phẩm này?",
-		// })
-		// 	.then(() => {
-		// 		onRemoveClick(value);
-		// 	})
-		// 	.catch(() => {});
-		return;
-	};
 
 	const handleEdit = (value) => {
 		const editUrl = `/admin/order/edit/${value}`;
@@ -54,6 +44,27 @@ const LatestOrders = ({ listOrder, ...rest }) => {
 	};
 
 	const classes = useStyles();
+	useEffect(() => {
+		if (listOrder) {
+			console.log(listOrder);
+			handlePagination(1);
+		}
+	}, [listOrder.length]);
+	const handlePagination = (page) => {
+		const limit = 8;
+		let endPage = Math.ceil(listOrder.length / 8);
+		console.log(page, endPage);
+		let from = (page - 1) * limit;
+		let toindex = page * limit;
+		if (page == endPage) {
+			let orderPagination = listOrder.slice(from, listOrder.length);
+			setOrderPagination(orderPagination);
+			return orderPagination;
+		}
+		let orderPagination = listOrder.slice(from, toindex);
+		setOrderPagination(orderPagination);
+		return orderPagination;
+	};
 
 	return (
 		<Card className={clsx(classes.root)} {...rest}>
@@ -80,7 +91,7 @@ const LatestOrders = ({ listOrder, ...rest }) => {
 							</TableRow>
 						</TableHead>
 						<TableBody>
-							{listOrder.map((order) => (
+							{orderPagination.map((order) => (
 								<TableRow hover key={order._id}>
 									<TableCell>
 										{order._id.slice(20).toUpperCase()}
@@ -125,16 +136,10 @@ const LatestOrders = ({ listOrder, ...rest }) => {
 					</Table>
 				</Box>
 			</PerfectScrollbar>
-			<Box display="flex" justifyContent="flex-end" p={2}>
-				<Button
-					color="primary"
-					endIcon={<ArrowRightIcon />}
-					size="small"
-					variant="text"
-				>
-					View all
-				</Button>
-			</Box>
+			<Pagenavigation
+				count={Math.ceil(listOrder.length / 8)}
+				Pagination={handlePagination}
+			></Pagenavigation>
 		</Card>
 	);
 };

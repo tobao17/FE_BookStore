@@ -39,7 +39,9 @@ const Sales = ({ className, totalOrderBugetByDate, ...rest }) => {
 		],
 		labels: ["1 Aug", "2 Aug", "3 Aug", "4 Aug", "5 Aug", "6 Aug"],
 	};
-	const salesthisyear = totalOrderBugetByDate.map((item) => item.totalAmount);
+	const salesthisyear = totalOrderBugetByDate
+		.sort((x, y) => (x._id.dateTime > y._id.dateTime ? 1 : -1))
+		.map((item) => item.totalAmount);
 	const label = totalOrderBugetByDate.map(
 		(item) => `${item._id.day}-${item._id.month}`
 	);

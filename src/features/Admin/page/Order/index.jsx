@@ -47,9 +47,11 @@ function Order(props) {
 	const FiltersData = async (keyword) => {
 		try {
 			console.log(keyword);
+
 			await orderApi.search(keyword).then((res) => {
 				if (res.data) {
 					dispatch({ type: "SEARCH_ORDER", payload: res.data });
+					console.log(res.data);
 				}
 			});
 		} catch (error) {}

@@ -10,6 +10,28 @@ const BillReducer = (state = initialState, action) => {
 			state.listBill = action.payload;
 			return { ...state };
 		}
+		case "SEARCH_BILL": {
+			const searchText = action.payload.keyword.toUpperCase();
+			const list = [...state.listBill];
+			const listBillFilter = list.filter((item) => {
+				if (item.userName.toUpperCase().includes(searchText)) return item;
+				if (item.Order.address.toUpperCase().includes(searchText))
+					return item;
+				if (
+					item.Order._id
+						.toString()
+						.toUpperCase()
+						.slice(20)
+						.includes(searchText)
+				)
+					return item;
+			}); // chua toi uu --> lam truoc chay do an--> quay lai sau
+			console.log(listBillFilter);
+			return {
+				...state,
+				listBill: listBillFilter,
+			};
+		}
 		case "DELETE_BILL": {
 			const list = [...state.listBill];
 			//console.log(list);

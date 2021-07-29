@@ -23,21 +23,29 @@ const useStyles = makeStyles(() => ({
 	},
 }));
 
-const TrafficByDevice = ({ className, ...rest }) => {
+const TrafficByDevice = ({
+	className,
+	totalOrderByWeb,
+	totalOrder,
+	...rest
+}) => {
 	const classes = useStyles();
 	const theme = useTheme();
+	const orderbyWebPercent = totalOrderByWeb
+		? (totalOrderByWeb / totalOrder).toFixed(2)
+		: 0;
 
 	const data = {
 		datasets: [
 			{
-				data: [60, 40],
+				data: [totalOrderByWeb, totalOrder - totalOrderByWeb],
 				backgroundColor: [colors.indigo[500], colors.red[600]],
 				borderWidth: 8,
 				borderColor: colors.common.white,
 				hoverBorderColor: colors.common.white,
 			},
 		],
-		labels: ["Desktop", "Mobile"],
+		labels: ["Web", "Mobile"],
 	};
 
 	const options = {
@@ -65,14 +73,14 @@ const TrafficByDevice = ({ className, ...rest }) => {
 	const devices = [
 		{
 			title: "Web",
-			value: 60,
+			value: orderbyWebPercent,
 			icon: LaptopMacIcon,
 			color: colors.indigo[500],
 		},
 
 		{
 			title: "Mobile",
-			value: 40,
+			value: 100 - orderbyWebPercent,
 			icon: PhoneIcon,
 			color: colors.red[600],
 		},

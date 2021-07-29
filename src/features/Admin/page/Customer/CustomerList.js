@@ -141,7 +141,9 @@ const Results = ({ className, customers, onRemoveClick, ...rest }) => {
 										</Box>
 									</TableCell>
 									<TableCell>{customer.email}</TableCell>
-									<TableCell>{`${customer.address}`}</TableCell>
+									<TableCell>{`${
+										customer.address ? customer.address : ""
+									}`}</TableCell>
 									<TableCell>{customer.phone}</TableCell>
 									<TableCell>
 										{moment(customer.createdAt).format("DD/MM/YYYY")}

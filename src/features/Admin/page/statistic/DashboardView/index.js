@@ -26,6 +26,8 @@ const Dashboard = () => {
 	const [totalProduct, setTotalProduct] = useState(0);
 	const [totalOrder, setTotalOrder] = useState(0);
 	const [totalOrderBugetByDate, setTotalOrderBugetByDate] = useState([]);
+	const [totalOrderByWeb, setTotalOrderByWeb] = useState(0);
+
 	useEffect(() => {
 		(async () => {
 			try {
@@ -36,6 +38,7 @@ const Dashboard = () => {
 				setTotalProduct(data.totalProduct);
 				setTotalOrder(data.totalOrder);
 				setTotalOrderBugetByDate(data.totalOrderBugetByDate);
+				setTotalOrderByWeb(data.totalOrderByWeb);
 			} catch (e) {
 				// Some fetch error
 			}
@@ -61,7 +64,10 @@ const Dashboard = () => {
 					<Sales totalOrderBugetByDate={totalOrderBugetByDate}></Sales>
 				</Grid>
 				<Grid item lg={4} md={6} xl={3} xs={12}>
-					<TrafficByDevice />
+					<TrafficByDevice
+						totalOrder={totalOrder}
+						totalOrderByWeb={totalOrderByWeb}
+					></TrafficByDevice>
 				</Grid>
 			</Grid>
 		</Container>

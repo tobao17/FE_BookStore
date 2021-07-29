@@ -89,11 +89,11 @@ const Results = ({ className, listbooks, onRemoveClick, ...rest }) => {
 		let from = (page - 1) * limit;
 		let toindex = page * limit;
 		if (page == endPage) {
-			let bookPagination = listbook.reverse().slice(from, listbooks.length);
+			let bookPagination = listbook.slice(from, listbooks.length);
 			setBooksPagination(bookPagination);
 			return bookPagination;
 		}
-		let bookPagination = listbook.reverse().slice(from, toindex);
+		let bookPagination = listbook.slice(from, toindex);
 		setBooksPagination(bookPagination);
 		return bookPagination;
 	};

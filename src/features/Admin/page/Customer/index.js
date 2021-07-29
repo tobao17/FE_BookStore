@@ -40,10 +40,11 @@ const CustomerListView = () => {
 				}
 			};
 		}
-		// if (listBill.length === 0) getData()();
+
 		getData()();
 		return () => {};
 	}, []);
+
 	const deleteData = async (value) => {
 		console.log(value);
 		try {

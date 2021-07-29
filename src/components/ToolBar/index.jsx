@@ -43,7 +43,7 @@ const Toolbar = ({ className, isOrder, onSubmit, ...rest }) => {
 				keyword: textSearch,
 			};
 			onSubmit(value);
-		}, 300);
+		}, 400);
 	}
 	const placeholder = isOrder
 		? "tìm mã đơn hàng,khách hàng,địa điểm giao"
