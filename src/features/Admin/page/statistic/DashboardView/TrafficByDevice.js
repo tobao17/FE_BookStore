@@ -80,7 +80,7 @@ const TrafficByDevice = ({
 
 		{
 			title: "Mobile",
-			value: 100 - orderbyWebPercent,
+			value: 1 - orderbyWebPercent,
 			icon: PhoneIcon,
 			color: colors.red[600],
 		},
