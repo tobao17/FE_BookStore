@@ -113,3 +113,11 @@ bottom-bar is colored bar located at bottom of invoice-card
 	display: flex;
 	justify-content: center;
 }
+.cssnotice {
+	color: teal;
+	text-decoration: none;
+}
+
+.cssnotice svg {
+	margin-bottom: -4px;
+}

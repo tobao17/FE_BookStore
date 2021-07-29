@@ -21,6 +21,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 import { useHistory } from "react-router-dom";
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
+import ErrorIcon from "@material-ui/icons/Error";
+const ENDPOINT = "https://apirealtimeute.herokuapp.com";
+let socket;
 
 const useStyles = makeStyles(() => ({
 	root: {},
@@ -88,8 +91,9 @@ const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
 														<Link
 															to={`/admin/order/edit/${item.id}`}
 														>
-															bạn nhận được một đơn hàng từ{" "}
-															{item.username}
+															<ErrorIcon></ErrorIcon>
+															Bạn nhận được một đơn hàng từ{" "}
+															<b>{item.username}</b>
 														</Link>
 													</MenuItem>
 												))}
