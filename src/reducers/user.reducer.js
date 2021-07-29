@@ -8,14 +8,27 @@ const UserReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case "GET_USER": {
 			//	const newlistBook = [...state.books];
-			state.listUser = action.payload;
-			return { ...state };
-		}
-		case "SEARCH_ORDER": {
-			const list = action.payload;
+			let listUser = action.payload;
 			return {
 				...state,
-				listUser: list,
+				listUser: listUser,
+			};
+		}
+		case "SEARCH_USER": {
+			const searchText = action.payload.keyword.toUpperCase();
+
+			const list = [...state.listUser];
+
+			const listUser = list.filter((item) => {
+				if (item.username.toUpperCase().includes(searchText)) return item;
+				if (item.address) {
+					if (item.address.toUpperCase().includes(searchText)) return item;
+				}
+			}); // chua toi uu --> lam truoc chay do an--> quay lai sau
+
+			return {
+				...state,
+				listUser: listUser,
 			};
 		}
 		case "DELETE_USER": {

@@ -74,11 +74,32 @@ const CustomerListView = () => {
 	function handleDelete(value) {
 		deleteData(value);
 	}
+	function handleFiltersChanse(keyword) {
+		if (keyword.keyword == "") {
+			function getData() {
+				return async () => {
+					try {
+						await userApi.getAll({}).then((res) => {
+							console.log(res);
+
+							dispatch({ type: "GET_USER", payload: res });
+						});
+						return;
+					} catch (error) {
+						console.log(error);
+						return;
+					}
+				};
+			}
+			getData()();
+		}
+		dispatch({ type: "SEARCH_USER", payload: keyword });
+	}
 
 	return (
 		<Container maxWidth={false}>
 			<NotificationContainer />
-			<Toolbar isOrder={true} />
+			<Toolbar isOrder={true} onSubmit={handleFiltersChanse} />
 			<Box mt={3}>
 				<Results customers={listUser} onRemoveClick={handleDelete} />
 			</Box>
