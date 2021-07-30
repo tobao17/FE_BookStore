@@ -34,6 +34,7 @@ const TrafficByDevice = ({
 	const orderbyWebPercent = totalOrderByWeb
 		? (totalOrderByWeb / totalOrder).toFixed(2)
 		: 0;
+	const ccccc = (1 - orderbyWebPercent).toFixed(2);
 
 	const data = {
 		datasets: [
@@ -80,7 +81,7 @@ const TrafficByDevice = ({
 
 		{
 			title: "Mobile",
-			value: 1 - orderbyWebPercent,
+			value: ccccc,
 			icon: PhoneIcon,
 			color: colors.red[600],
 		},
