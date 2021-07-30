@@ -89,6 +89,7 @@ const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
 														className={classes.dropdownItem}
 													>
 														<Link
+															className="cssnotice"
 															to={`/admin/order/edit/${item.id}`}
 														>
 															<ErrorIcon></ErrorIcon>

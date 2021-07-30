@@ -31,11 +31,6 @@ const Sales = ({ className, totalOrderBugetByDate, ...rest }) => {
 				data: [20, 30, 19, 27, 29, 19, 20],
 				label: "This year",
 			},
-			{
-				backgroundColor: colors.grey[200],
-				data: [110, 200, 120, 290, 500, 250, 130],
-				label: "Last year",
-			},
 		],
 		labels: ["1 Aug", "2 Aug", "3 Aug", "4 Aug", "5 Aug", "6 Aug"],
 	};
@@ -112,7 +107,7 @@ const Sales = ({ className, totalOrderBugetByDate, ...rest }) => {
 						size="small"
 						variant="text"
 					>
-						Last 7 days
+						Last days
 					</Button>
 				}
 				title="Latest Sales"
