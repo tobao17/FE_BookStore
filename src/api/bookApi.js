@@ -39,12 +39,22 @@ const productApi = {
 		const url = `/books/search`;
 		return axiosClient.post(url, data);
 	},
-
+	filterByPriceRange: (data) => {
+		const url = `/books/filterbyprice`;
+		return axiosClient.post(url, data);
+	},
+	filterBycategory: (data) => {
+		const url = `/books/filterbycategory`;
+		return axiosClient.post(url, data);
+	},
 	getOne: (id) => {
 		const url = `/books/getbook/${id}`;
 		return axiosClient.get(url);
 	},
-
+	getBookCategory: (id) => {
+		const url = `/books/getbookcategory/${id}`;
+		return axiosClient.get(url);
+	},
 	delete: (id) => {
 		const url = `/books/delete/${id}`;
 		return axiosClient.get(url, {

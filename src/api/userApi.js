@@ -4,12 +4,17 @@ const userApi = {
 		const url = "/user";
 		return axiosClient.get(url, { params });
 	},
+
 	search: (data) => {
 		const url = `/user/search`;
 		return axiosClient.post(url, data);
 	},
 	delete: (id) => {
 		const url = `/user/delete/${id}`;
+		return axiosClient.get(url);
+	},
+	detail: (id) => {
+		const url = `/user/userdetail/${id}`;
 		return axiosClient.get(url);
 	},
 	login: (data) => {
@@ -23,6 +28,10 @@ const userApi = {
 	},
 	loginfb: (data) => {
 		const url = `user/signinfb`;
+		return axiosClient.post(url, data);
+	},
+	register: (data) => {
+		const url = `/user/create`;
 		return axiosClient.post(url, data);
 	},
 };

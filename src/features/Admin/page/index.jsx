@@ -14,7 +14,7 @@ import orderApi from "../../../api/orderApi";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import io from "socket.io-client";
-const ENDPOINT = "http://localhost:5000";
+const ENDPOINT = "https://apirealtimeute.herokuapp.com";
 let socket;
 const useStyles = makeStyles((theme) => ({
 	root: {

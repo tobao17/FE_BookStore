@@ -17,11 +17,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
-import { GoogleLogin } from "react-google-login";
-import FacebookIcon from "@material-ui/icons/Facebook";
-import EmailIcon from "@material-ui/icons/Email";
-import { IconButton } from "@material-ui/core";
 
 import {
 	NotificationContainer,
@@ -36,7 +31,6 @@ function Copyright() {
 				uteBookstore
 			</Link>{" "}
 			{new Date().getFullYear()}
-			{"."}
 		</Typography>
 	);
 }
@@ -125,27 +119,49 @@ export default function SignIn() {
 		} catch (error) {}
 	};
 	const handleGoogle = async (res) => {
-		const token = res.tokenId;
-		setProgess(true);
-		console.log("day la " + token);
-		try {
-			await userApi.logingg({ token }).then((res) => {
-				if (res.accessToken) {
-					console.log(res);
-					localStorage.setItem("name", res.username);
-					localStorage.setItem("token", res.accessToken);
-					dispatch({
-						type: "NOTICE",
-						payload: {
-							title: "Thông báo",
-							msg: "Đăng nhập thành công",
-						},
-					});
-					setProgess(false);
-					history.push("/admin/book");
-				}
-			});
-		} catch (error) {}
+		//<<<<<<< HEAD
+		// const token = res.tokenId;
+		// setProgess(true);
+		// console.log(token);
+		// try {
+		// 	await userApi.logingg({ token }).then((res) => {
+		// 		if (res.accessToken) {
+		// 			localStorage.setItem("token", res.accessToken);
+		// 			dispatch({
+		// 				type: "NOTICE",
+		// 				payload: {
+		// 					title: "Thông báo",
+		// 					msg: "Đăng nhập thành công",
+		// 				},
+		// 			});
+		// 			setProgess(false);
+		// 			history.push("/admin/book");
+		// 		}
+		// 	});
+		// } catch (error) {}
+		// =======
+		// 		const token = res.tokenId;
+		// 		setProgess(true);
+		// 		console.log("day la " + token);
+		// 		try {
+		// 			await userApi.logingg({ token }).then((res) => {
+		// 				if (res.accessToken) {
+		// 					console.log(res);
+		// 					localStorage.setItem("name", res.username);
+		// 					localStorage.setItem("token", res.accessToken);
+		// 					dispatch({
+		// 						type: "NOTICE",
+		// 						payload: {
+		// 							title: "Thông báo",
+		// 							msg: "Đăng nhập thành công",
+		// 						},
+		// 					});
+		// 					setProgess(false);
+		// 					history.push("/admin/book");
+		// 				}
+		// 			});
+		// 		} catch (error) {}
+		// >>>>>>> login_gg_fB_CURĐ
 	};
 	async function handleLogin() {
 		console.log(name, password);
@@ -255,9 +271,9 @@ export default function SignIn() {
 									<EmailIcon></EmailIcon>
 								</IconButton>
 							)}
-						/>
+						/> */}
 
-						<FacebookLogin
+						{/* <FacebookLogin
 							appId="750523348882984"
 							autoLoad={false}
 							fields="name,email"

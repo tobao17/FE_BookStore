@@ -308,11 +308,11 @@ export default function Checkout() {
 												`   x` +
 												product.quantity
 											}
-											secondary={product.book.price + `$`}
+											secondary={product.book.price + `.000VND`}
 										/>
 
 										<Typography variant="body2">
-											{product.totalPrice + `$`}
+											{product.totalPrice + `.000VND`}
 										</Typography>
 									</ListItem>
 								))}
@@ -322,7 +322,7 @@ export default function Checkout() {
 										variant="subtitle1"
 										className={classes.total}
 									>
-										{detailOrder.totalPrice + `$`}
+										{detailOrder.totalPrice + `.000VND`}
 									</Typography>
 								</ListItem>
 							</List>

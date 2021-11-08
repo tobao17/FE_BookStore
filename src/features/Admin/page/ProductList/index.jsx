@@ -5,6 +5,7 @@ import TableProduct from "./TableProduct";
 import bookApi from "../../../../api/bookApi";
 import { useDispatch, useSelector } from "react-redux";
 import "react-notifications/lib/notifications.css";
+
 import {
 	NotificationContainer,
 	NotificationManager,
@@ -12,7 +13,7 @@ import {
 import { useHistory, useParams } from "react-router-dom";
 import io from "socket.io-client";
 import casual from "casual-browserify";
-const ENDPOINT = "http://localhost:5000";
+const ENDPOINT = "https://apirealtimeute.herokuapp.com";
 let socket;
 
 const BookListView = () => {
@@ -37,10 +38,10 @@ const BookListView = () => {
 	useEffect(() => {
 		//	lưu data
 		let tokenlg = localStorage.getItem("token");
-		if (tokenlg === null) {
-			history.push("/sign-in");
-			return;
-		}
+		// if (tokenlg === null) {
+		// 	history.push("/sign-in");
+		// 	return;
+		// }
 
 		function getData() {
 			return async () => {

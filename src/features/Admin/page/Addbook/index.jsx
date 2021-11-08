@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 
 import casual from "casual-browserify";
-const ENDPOINT = "http://192.168.1.5:5000";
+const ENDPOINT = "http://localhost:5000";
 let socket;
 
 AddBook.propTypes = {};
@@ -73,6 +73,7 @@ function AddBook(props) {
 	}, []);
 	function handleSubmit(value) {
 		return async (value) => {
+			console.log(casual.uuid);
 			try {
 				console.log(value);
 				const data = new FormData(); // tao form multiple

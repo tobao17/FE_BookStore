@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
+import {
+	NotificationContainer,
+	NotificationManager,
+} from "react-notifications";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import Link from "@material-ui/core/Link";
@@ -13,10 +17,9 @@ import ForgotPassword from "../../../api/forgotPasswordApi";
 import { useParams } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop";
-import {
-	NotificationContainer,
-	NotificationManager,
-} from "react-notifications";
+import "react-notifications/lib/notifications.css";
+import "./index.css";
+
 function Copyright() {
 	return (
 		<Typography variant="body2" color="textSecondary" align="center">
@@ -50,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default function ResetPassword() {
+export default function ForgetPassword() {
 	const [value, setValue] = useState("");
 	const [progess, setProgess] = useState(false);
 	const handleonchange = (e) => {
@@ -68,14 +71,14 @@ export default function ResetPassword() {
 			setProgess(true);
 
 			await ForgotPassword.forgetPassword(data).then((res) => {
-				console.log(res.msd);
+				console.log(res);
 				if (res.Type === "success") {
 					setValue("");
+					NotificationManager.success("", res.data.msd, 1000);
 					setProgess(false);
-					NotificationManager.success("", res.msd, 1000);
 				} else {
+					NotificationManager.warning("", res.data.msd, 1000);
 					setProgess(false);
-					NotificationManager.warning("", res.msd, 1000);
 				}
 			});
 		} catch (error) {}
@@ -105,17 +108,6 @@ export default function ResetPassword() {
 						type="email"
 						autoComplete="current-password"
 					/>
-					{/* <TextField
-						variant="outlined"
-						margin="normal"
-						required
-						fullWidth
-						name="password"
-						label="Nhập lại mật khẩu"
-						type="password"
-						id="password"
-						autoComplete="current-password"
-					/> */}
 
 					<Button
 						type="submit"
